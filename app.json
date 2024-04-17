@@ -25,6 +25,12 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "e7bc111b-ae6e-44e8-98ae-174116fa67e7"
+      }
+    },
+    "owner": "babacarsaady"
   }
 }
