@@ -19,7 +19,7 @@ const Tab = createBottomTabNavigator();
 function MyTabs() {
   return (
     //<StatusBar style="auto" />
-    <Tab.Navigator>
+    <Tab.Navigator screenOptions={{ headerShown: false }}>
       <Tab.Screen name="Produits" component={ProductsScreen} />
       <Tab.Screen name="Ventes" component={SettingsScreen} />
       <Tab.Screen name="Catégories" component={SettingsScreen} />

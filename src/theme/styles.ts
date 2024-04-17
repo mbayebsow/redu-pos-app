@@ -1,6 +1,7 @@
 import { StyleSheet } from "react-native";
 
 export const accentColor = "#007bff";
+export const lightColor = "rgba(51, 51, 51, 0.08)";
 
 export const globalStyles = StyleSheet.create({
   container: {
@@ -13,7 +14,7 @@ export const globalStyles = StyleSheet.create({
     height: 40,
     padding: 10,
     borderRadius: 10,
-    backgroundColor: "rgba(51, 51, 51, 0.08)",
+    backgroundColor: lightColor,
     width: "100%",
   },
   buttonPrimary: {
@@ -22,13 +23,22 @@ export const globalStyles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 20,
     height: 40,
-    borderRadius: 10,
+    borderRadius: 100,
   },
   buttonSecondary: {
-    backgroundColor: "rgba(51, 51, 51, 0.08)",
+    backgroundColor: lightColor,
     paddingVertical: 10,
     paddingHorizontal: 20,
     height: 40,
+    borderRadius: 100,
+  },
+  buttonIcon: {
+    backgroundColor: lightColor,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    height: 40,
+    width: 40,
     borderRadius: 10,
   },
 });

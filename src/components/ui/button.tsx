@@ -3,18 +3,32 @@ import React from "react";
 import { globalStyles } from "../../theme/styles";
 
 interface ButtonProps {
-  children: string;
+  title?: string;
+  icon?: React.ReactNode;
+  children?: React.ReactNode;
   onPress?: () => void;
-  variant?: "primary" | "secondary";
+  variant?: "primary" | "secondary" | "icon";
 }
 
-const Button: React.FC<ButtonProps> = ({ children, onPress, variant = "primary" }) => {
+const Button: React.FC<ButtonProps> = ({ title, icon, children, onPress, variant = "primary" }) => {
   return (
-    <View style={globalStyles.container}>
+    <View style={[globalStyles.container]}>
       <Pressable
-        style={variant === "secondary" ? globalStyles.buttonSecondary : globalStyles.buttonPrimary}
+        style={[
+          styles.container,
+          variant === "secondary"
+            ? globalStyles.buttonSecondary
+            : variant === "icon"
+            ? globalStyles.buttonIcon
+            : globalStyles.buttonPrimary,
+        ]}
       >
-        <Text>{children}</Text>
+        {icon}
+        {title ? (
+          <Text style={[variant === "primary" && { color: "white" }]}>{title}</Text>
+        ) : (
+          children
+        )}
       </Pressable>
     </View>
   );
@@ -22,4 +36,11 @@ const Button: React.FC<ButtonProps> = ({ children, onPress, variant = "primary" 
 
 export default Button;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "row",
+    gap: 10,
+  },
+});

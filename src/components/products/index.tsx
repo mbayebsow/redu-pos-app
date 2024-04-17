@@ -1,6 +1,6 @@
 import { Image, StyleSheet, Text, View } from "react-native";
 import React from "react";
-import { globalStyles, accentColor } from "../../theme/styles";
+import { globalStyles, accentColor, lightColor } from "../../theme/styles";
 
 const Product = () => {
   return (
@@ -34,6 +34,7 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     aspectRatio: 1,
     width: "100%",
+    backgroundColor: lightColor,
   },
   image: {
     height: "100%",
@@ -44,10 +45,10 @@ const styles = StyleSheet.create({
   },
   name: {
     fontWeight: "700",
-    fontSize: 17,
+    fontSize: 14,
   },
   price: {
     opacity: 0.6,
-    fontSize: 15,
+    fontSize: 12,
   },
 });
