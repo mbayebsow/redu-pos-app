@@ -8,7 +8,7 @@ export const globalStyles = StyleSheet.create({
     paddingHorizontal: 6,
     paddingTop: 4,
     paddingBottom: 4,
-    backgroundColor: "white",
+    //backgroundColor: "white",
   },
   input: {
     height: 40,

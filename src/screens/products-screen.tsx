@@ -1,12 +1,12 @@
-import { FlatList, StyleSheet, View } from "react-native";
 import React from "react";
-import Input from "../components/ui/input";
+import { FlatList, StyleSheet, View } from "react-native";
+import { ListFilter, Plus } from "lucide-react-native";
 import { globalStyles } from "../theme/styles";
+import Input from "../components/ui/input";
 import Button from "../components/ui/button";
 import Product from "../components/products";
-import { ListFilter, Plus, ScanLine } from "lucide-react-native";
 import Header from "../components/layout/header";
-import Fab from "../components/ui/fab";
+import BarcodeScanner from "../components/barcode-scanner";
 
 const data = Array(50).fill(0);
 
@@ -39,7 +39,7 @@ const ProductsScreen = () => {
           renderItem={(item) => <Product />}
         />
       </View>
-      <Fab title="Scanner" icon={<ScanLine color="white" size={20} />} />
+      <BarcodeScanner />
     </View>
   );
 };

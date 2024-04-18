@@ -14,6 +14,7 @@ const Button: React.FC<ButtonProps> = ({ title, icon, children, onPress, variant
   return (
     <View style={[globalStyles.container]}>
       <Pressable
+        onPress={onPress}
         style={[
           styles.container,
           variant === "secondary"
