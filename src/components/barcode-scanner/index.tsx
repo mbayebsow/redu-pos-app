@@ -1,5 +1,5 @@
-import { Modal, Pressable, SafeAreaView, StyleSheet, Text, View } from "react-native";
-import { Camera } from "expo-camera";
+import { Alert, Modal, Pressable, SafeAreaView, StyleSheet, Text, View } from "react-native";
+import { BarcodeScanningResult, Camera, CameraView } from "expo-camera/next";
 import React, { useEffect, useState } from "react";
 import Fab from "../ui/fab";
 import { ScanLine, X } from "lucide-react-native";
@@ -24,10 +24,10 @@ const BarcodeScanner = () => {
     };
   }, []);
 
-  const handleBarCodeScanned = ({ type, data }) => {
+  const handleBarCodeScanned = ({ type, data }: BarcodeScanningResult) => {
     setScanned(true);
     setResult(data);
-    console.log(`Bar code with type ${type} and data ${data} has been scanned!`);
+    Alert.alert(`Bar code with type ${type} and data ${data} has been scanned!`);
   };
 
   const handleClose = () => {
@@ -53,14 +53,11 @@ const BarcodeScanner = () => {
       <Modal visible={visible} animationType="slide">
         <SafeAreaView style={styles.container}>
           <View style={styles.cameraContainer}>
-            <Camera
-              ratio="1:1"
-              focusable={true}
-              autoFocus={true}
-              focusDepth={3}
-              onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
-              barCodeScannerSettings={{
-                barCodeTypes: [
+            <CameraView
+              style={styles.camera}
+              onBarcodeScanned={scanned ? undefined : handleBarCodeScanned}
+              barcodeScannerSettings={{
+                barcodeTypes: [
                   "upc_a",
                   "codabar",
                   "ean13",
@@ -71,19 +68,20 @@ const BarcodeScanner = () => {
                   "upc_e",
                 ],
               }}
-              style={StyleSheet.absoluteFillObject}
             />
           </View>
-          {scanned && (
-            <Pressable onPress={() => setScanned(false)}>
-              <Text>Tap to Scan Again</Text>
-            </Pressable>
-          )}
 
-          <Text>{result}</Text>
+          <View>
+            <Button
+              title="Scanner"
+              icon={<ScanLine size={20} color="white" />}
+              onPress={() => setScanned(false)}
+            />
+            <Text>{result}</Text>
+          </View>
 
           <View style={styles.closeButton}>
-            <Button title="Fermer" icon={<X size={20} color="white" />} onPress={handleClose} />
+            <Button variant="icon" icon={<X size={20} color="black" />} onPress={handleClose} />
           </View>
         </SafeAreaView>
       </Modal>
@@ -96,15 +94,19 @@ export default BarcodeScanner;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    gap: 40,
     alignItems: "center",
     justifyContent: "center",
   },
   cameraContainer: {
     //flex: 1,
-    width: "100%",
-    height: "100%",
+    width: "80%",
     justifyContent: "center",
     alignItems: "center",
+  },
+  camera: {
+    width: "100%",
+    aspectRatio: 1.8,
     borderRadius: 20,
     overflow: "hidden",
   },
@@ -112,9 +114,8 @@ const styles = StyleSheet.create({
     flex: 1,
     position: "absolute",
     justifyContent: "center",
-    alignItems: "center",
-    bottom: 50,
+    top: 50,
+    left: 10,
     zIndex: 1,
-    width: "100%",
   },
 });
