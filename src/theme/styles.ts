@@ -1,7 +1,27 @@
-import { StyleSheet } from "react-native";
+import { Theme } from "@react-navigation/native";
+import { StyleProp, StyleSheet, TextStyle } from "react-native";
 
 export const accentColor = "#007bff";
 export const lightColor = "rgba(51, 51, 51, 0.08)";
+
+export const headerTitleStyle: StyleProp<
+  Pick<TextStyle, "fontFamily" | "fontSize" | "fontWeight">
+> = {
+  fontSize: 25,
+  fontWeight: "bold",
+};
+
+export const AppTheme: Theme = {
+  dark: false,
+  colors: {
+    primary: accentColor,
+    background: "white",
+    card: "rgb(255, 255, 255)",
+    text: "rgb(28, 28, 30)",
+    border: "rgb(199, 199, 204)",
+    notification: "rgb(255, 69, 58)",
+  },
+};
 
 export const globalStyles = StyleSheet.create({
   container: {

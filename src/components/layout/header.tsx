@@ -1,5 +1,5 @@
-import { SafeAreaView, StyleSheet, Text, View } from "react-native";
 import React from "react";
+import { SafeAreaView, StyleSheet, Text, View } from "react-native";
 import { globalStyles } from "../../theme/styles";
 
 interface HeaderProps {
@@ -29,6 +29,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
+    backgroundColor: "white",
   },
   title: {
     fontSize: 25,

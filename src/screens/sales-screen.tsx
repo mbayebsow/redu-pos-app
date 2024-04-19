@@ -1,17 +1,18 @@
+import { FlatList, StyleSheet, Text, View } from "react-native";
 import React from "react";
-import { FlatList, StyleSheet, View } from "react-native";
-import { ListFilter, ScanLine } from "lucide-react-native";
 import { globalStyles } from "../theme/styles";
+import SaleItem from "../components/sales";
 import Input from "../components/ui/input";
 import Button from "../components/ui/button";
-import Product from "../components/products";
-import { NavigationProp, useNavigation } from "@react-navigation/native";
+import { ListFilter } from "lucide-react-native";
 
 const data = Array(50).fill(0);
 
-const ProductsScreen = () => {
-  const navigation = useNavigation<NavigationProp<any>>();
+const Separator = () => {
+  return <View style={{ borderBottomWidth: 0 }} />;
+};
 
+const SalesScreen = () => {
   return (
     <View style={[globalStyles.container, { flex: 1 }]}>
       <View style={[styles.filterContainer]}>
@@ -20,28 +21,26 @@ const ProductsScreen = () => {
         </View>
         <View style={styles.buttonContainer}>
           <Button variant="icon" icon={<ListFilter />} />
-          <Button
-            variant="icon"
-            icon={<ScanLine />}
-            onPress={() => navigation.navigate("ScannerScreen")}
-          />
         </View>
       </View>
 
-      <View style={[globalStyles.container, styles.productsContainer]}>
+      <View style={[globalStyles.container]}>
         <FlatList
-          contentContainerStyle={{ gap: 10 }}
-          columnWrapperStyle={{ gap: 10 }}
+          //contentContainerStyle={{ gap: 10 }}
+          //columnWrapperStyle={{ gap: 10 }}
+          ItemSeparatorComponent={Separator}
           data={data}
-          numColumns={3}
+          //numColumns={3}
           showsVerticalScrollIndicator={false}
           //keyExtractor={(item, index) => index} item.id
-          renderItem={(item) => <Product />}
+          renderItem={(item) => <SaleItem />}
         />
       </View>
     </View>
   );
 };
+
+export default SalesScreen;
 
 const styles = StyleSheet.create({
   filterContainer: {
@@ -66,5 +65,3 @@ const styles = StyleSheet.create({
     gap: 10,
   },
 });
-
-export default ProductsScreen;
