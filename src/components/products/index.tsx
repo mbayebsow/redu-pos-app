@@ -26,8 +26,9 @@ export default Product;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    //width: "50%",
+    //flex: 1,
+    padding: 5,
+    width: "33.33%",
   },
   imageContainer: {
     borderRadius: 10,

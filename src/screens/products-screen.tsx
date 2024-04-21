@@ -1,54 +1,63 @@
 import React from "react";
-import { FlatList, StyleSheet, View } from "react-native";
-import { ListFilter, ScanLine } from "lucide-react-native";
-import { globalStyles } from "../theme/styles";
+import { Pressable, StyleSheet, View } from "react-native";
+import { CircleFadingPlus, ListFilter, ScanLine, Search } from "lucide-react-native";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
 import Input from "../components/ui/input";
 import Button from "../components/ui/button";
 import Product from "../components/products";
-import { NavigationProp, useNavigation } from "@react-navigation/native";
+import { backgroundColor, lightColor } from "../theme/styles";
+import AppLayout from "../components/layout";
 
 const data = Array(50).fill(0);
+
+const ActionButton = () => {
+  const navigation = useNavigation<NavigationProp<any>>();
+  return (
+    <Pressable onPress={() => navigation.navigate("AddProduct")} style={styles.addProductButton}>
+      <CircleFadingPlus />
+    </Pressable>
+  );
+};
 
 const ProductsScreen = () => {
   const navigation = useNavigation<NavigationProp<any>>();
 
   return (
-    <View style={[globalStyles.container, { flex: 1 }]}>
-      <View style={[styles.filterContainer]}>
-        <View style={styles.inputContainer}>
-          <Input />
-        </View>
-        <View style={styles.buttonContainer}>
-          <Button variant="icon" icon={<ListFilter />} />
-          <Button
-            variant="icon"
-            icon={<ScanLine />}
-            onPress={() => navigation.navigate("ScannerScreen")}
-          />
+    <AppLayout title="Produits" headerRight={<ActionButton />} stickyHeaderIndices={[1]}>
+      <View>
+        <View style={[styles.filterContainer]}>
+          <View style={styles.inputContainer}>
+            <Input placholder="Recherche" icon={<Search size={20} color="gray" />} />
+          </View>
+          <View style={styles.buttonContainer}>
+            <Button variant="icon" icon={<ListFilter size={20} />} />
+            <Button
+              variant="icon"
+              icon={<ScanLine size={20} />}
+              onPress={() => navigation.navigate("ScannerScreen")}
+            />
+          </View>
         </View>
       </View>
 
-      <View style={[globalStyles.container, styles.productsContainer]}>
-        <FlatList
-          contentContainerStyle={{ gap: 10 }}
-          columnWrapperStyle={{ gap: 10 }}
-          data={data}
-          numColumns={3}
-          showsVerticalScrollIndicator={false}
-          //keyExtractor={(item, index) => index} item.id
-          renderItem={(item) => <Product />}
-        />
+      <View style={styles.productsContainer}>
+        {data.map((item, index) => (
+          <Product key={index} />
+        ))}
       </View>
-    </View>
+    </AppLayout>
   );
 };
 
 const styles = StyleSheet.create({
   filterContainer: {
-    //flex: 1,
+    //zIndex: 2,
     flexDirection: "row",
-    //justifyContent: "space-between",
-    backgroundColor: "white",
+    paddingHorizontal: 6,
+    paddingBottom: 4,
+    backgroundColor: backgroundColor,
+    borderBottomWidth: 1,
+    borderColor: lightColor,
   },
   inputContainer: {
     flex: 1,
@@ -61,9 +70,13 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     flexWrap: "wrap",
-    justifyContent: "space-between",
     alignItems: "flex-start",
-    gap: 10,
+    padding: 6,
+    //marginTop: 5,
+    backgroundColor: "white",
+  },
+  addProductButton: {
+    padding: 6,
   },
 });
 

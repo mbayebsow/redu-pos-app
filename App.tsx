@@ -1,34 +1,27 @@
 import React from "react";
 import { StatusBar } from "expo-status-bar";
-import { Text, View } from "react-native";
-import { NavigationContainer, Theme } from "@react-navigation/native";
+import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Boxes, HandCoins, LayoutGrid, Plus, Store } from "lucide-react-native";
+import { headerTitleStyle, AppTheme } from "./src/theme/styles";
 import ProductsScreen from "./src/screens/products-screen";
 import ScannerScreen from "./src/screens/scanner-screen";
 import Button from "./src/components/ui/button";
-import { headerTitleStyle, AppTheme } from "./src/theme/styles";
 import SalesScreen from "./src/screens/sales-screen";
-
-const SettingsScreen: React.FC = () => {
-  return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>Settings!</Text>
-    </View>
-  );
-};
+import CategoryScreen from "./src/screens/category-screen";
+import StoreScreen from "./src/screens/store-screen";
+import AddProductScreen from "./src/screens/add-product-screen";
 
 const Tab = createBottomTabNavigator();
 const RootStack = createNativeStackNavigator();
 
 const TabNavigation = () => {
   return (
-    //<StatusBar style="auto" />
     <Tab.Navigator
       screenOptions={{
-        tabBarStyle: { paddingBottom: 8, height: 60 },
-        headerTitleStyle,
+        tabBarStyle: { marginBottom: 5 },
+        headerShown: false,
       }}
     >
       <Tab.Screen
@@ -50,16 +43,22 @@ const TabNavigation = () => {
       />
       <Tab.Screen
         name="Catégories"
-        component={SettingsScreen}
+        component={CategoryScreen}
         options={{
           tabBarIcon: ({ color, size }) => <LayoutGrid color={color} size={size} />,
+          headerRight: (props) => {
+            return <Button title="Ajouter" icon={<Plus size={20} color="white" />} />;
+          },
         }}
       />
       <Tab.Screen
         name="Boutiques"
-        component={SettingsScreen}
+        component={StoreScreen}
         options={{
           tabBarIcon: ({ color, size }) => <Store color={color} size={size} />,
+          headerRight: (props) => {
+            return <Button title="Ajouter" icon={<Plus size={20} color="white" />} />;
+          },
         }}
       />
     </Tab.Navigator>
@@ -68,9 +67,31 @@ const TabNavigation = () => {
 
 const Routes = () => {
   return (
-    <RootStack.Navigator screenOptions={{ headerTitleStyle }}>
-      <RootStack.Screen name="Home" component={TabNavigation} options={{ headerShown: false }} />
-      <RootStack.Screen name="ScannerScreen" component={ScannerScreen} />
+    <RootStack.Navigator screenOptions={{ headerTitleAlign: "left", headerBackTitle: "Retour" }}>
+      <RootStack.Group>
+        <RootStack.Screen name="Home" component={TabNavigation} options={{ headerShown: false }} />
+        <RootStack.Screen
+          name="ScannerScreen"
+          component={ScannerScreen}
+          options={{ headerTransparent: true, headerTitle: "" }}
+        />
+      </RootStack.Group>
+
+      <RootStack.Group
+        screenOptions={{
+          presentation: "modal",
+          headerTitle: "Ajouter un produit",
+          headerBackVisible: true,
+          //headerBackTitle: "Fermer",
+          headerShadowVisible: false,
+          headerBackTitleVisible: true,
+          headerLargeTitle: true,
+          //headerTransparent: true,
+          headerBlurEffect: "regular",
+        }}
+      >
+        <RootStack.Screen name="AddProduct" component={AddProductScreen} />
+      </RootStack.Group>
     </RootStack.Navigator>
   );
 };
@@ -78,6 +99,7 @@ const Routes = () => {
 export default function App() {
   return (
     <NavigationContainer theme={AppTheme}>
+      <StatusBar style="auto" />
       <Routes />
     </NavigationContainer>
   );

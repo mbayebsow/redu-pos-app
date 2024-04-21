@@ -2,7 +2,8 @@ import { Theme } from "@react-navigation/native";
 import { StyleProp, StyleSheet, TextStyle } from "react-native";
 
 export const accentColor = "#007bff";
-export const lightColor = "rgba(51, 51, 51, 0.08)";
+export const lightColor = "rgba(225, 225, 230, 1)";
+export const backgroundColor = "rgba(245, 245, 250, 1)";
 
 export const headerTitleStyle: StyleProp<
   Pick<TextStyle, "fontFamily" | "fontSize" | "fontWeight">
@@ -15,7 +16,7 @@ export const AppTheme: Theme = {
   dark: false,
   colors: {
     primary: accentColor,
-    background: "white",
+    background: backgroundColor,
     card: "rgb(255, 255, 255)",
     text: "rgb(28, 28, 30)",
     border: "rgb(199, 199, 204)",
@@ -26,39 +27,8 @@ export const AppTheme: Theme = {
 export const globalStyles = StyleSheet.create({
   container: {
     paddingHorizontal: 6,
-    paddingTop: 4,
-    paddingBottom: 4,
+    paddingTop: 6,
+    paddingBottom: 6,
     //backgroundColor: "white",
-  },
-  input: {
-    height: 40,
-    padding: 10,
-    borderRadius: 10,
-    backgroundColor: lightColor,
-    width: "100%",
-  },
-  buttonPrimary: {
-    backgroundColor: accentColor,
-    color: "white",
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    height: 40,
-    borderRadius: 100,
-  },
-  buttonSecondary: {
-    backgroundColor: lightColor,
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    height: 40,
-    borderRadius: 100,
-  },
-  buttonIcon: {
-    backgroundColor: lightColor,
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    height: 40,
-    width: 40,
-    borderRadius: 10,
   },
 });

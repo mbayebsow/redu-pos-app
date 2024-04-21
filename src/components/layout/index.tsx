@@ -1,35 +1,41 @@
+import { Text } from "react-native";
 import React from "react";
-import { StyleSheet, Text } from "react-native";
 import {
   Header,
   LargeHeader,
   ScalingView,
   ScrollHeaderProps,
+  ScrollViewWithHeaders,
 } from "@codeherence/react-native-header";
 import { Settings } from "lucide-react-native";
 
+interface AppLayoutProps {
+  title: string;
+  children: React.ReactNode;
+  headerRight?: React.ReactNode;
+  stickyHeaderIndices?: number[];
+}
+
 interface HeaderProps {
   title: string;
-  actionButtons?: React.ReactNode;
+  headerRight?: React.ReactNode;
 }
 
 export const HeaderComponent: React.FC<ScrollHeaderProps & HeaderProps> = ({
-  actionButtons,
+  headerRight,
   showNavBar,
-  scrollY,
   title,
 }) => (
   <Header
     noBottomBorder
     showNavBar={showNavBar}
     headerLeft={<Settings />}
-    headerRight={actionButtons}
+    headerRight={headerRight}
     headerCenter={<Text style={{ fontSize: 16, fontWeight: "bold" }}>{title}</Text>}
   />
 );
 
 export const LargeHeaderComponent: React.FC<ScrollHeaderProps & HeaderProps> = ({
-  actionButtons,
   scrollY,
   title,
 }) => (
@@ -43,22 +49,23 @@ export const LargeHeaderComponent: React.FC<ScrollHeaderProps & HeaderProps> = (
   </LargeHeader>
 );
 
-const styles = StyleSheet.create({
-  container: {
-    //flex: 1,
-    padding: 6,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    backgroundColor: "white",
-  },
-  title: {
-    fontSize: 25,
-    fontWeight: "bold",
-  },
-  actionsContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 6,
-  },
-});
+const AppLayout: React.FC<AppLayoutProps> = ({
+  title,
+  children,
+  headerRight,
+  stickyHeaderIndices,
+}) => {
+  return (
+    <ScrollViewWithHeaders
+      HeaderComponent={(props) => (
+        <HeaderComponent {...props} title={title} headerRight={headerRight} />
+      )}
+      LargeHeaderComponent={(props) => <LargeHeaderComponent {...props} title={title} />}
+      stickyHeaderIndices={stickyHeaderIndices}
+    >
+      {children}
+    </ScrollViewWithHeaders>
+  );
+};
+
+export default AppLayout;
