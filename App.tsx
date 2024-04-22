@@ -4,7 +4,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Boxes, HandCoins, LayoutGrid, Plus, Store } from "lucide-react-native";
-import { AppTheme } from "./src/theme/styles";
+import { AppTheme, backgroundColor } from "./src/theme/styles";
 import ProductsScreen from "./src/screens/products-screen";
 import ScannerScreen from "./src/screens/scanner-screen";
 import Button from "./src/components/ui/button";
@@ -69,7 +69,7 @@ const TabNavigation = () => {
 
 const Routes = () => {
   return (
-    <RootStack.Navigator screenOptions={{ headerBackTitle: "Retour" }}>
+    <RootStack.Navigator screenOptions={{ headerBackTitle: "Retour", headerTitleAlign: "center" }}>
       <RootStack.Group>
         <RootStack.Screen name="Home" component={TabNavigation} options={{ headerShown: false }} />
         <RootStack.Screen
@@ -85,8 +85,8 @@ const Routes = () => {
           headerTitle: "Ajouter un produit",
           //headerShadowVisible: false,
           //headerLargeTitle: true,
-          headerTransparent: true,
           headerLeft: () => <CloseModalButton title="Annuler" navigation={navigation} />,
+          headerStyle: { backgroundColor: "transparent" },
         })}
       >
         <RootStack.Screen name="AddProduct" component={AddProductScreen} />

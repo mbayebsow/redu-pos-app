@@ -1,6 +1,7 @@
-import { Button, StyleSheet } from "react-native";
+import { Pressable, StyleSheet, Text } from "react-native";
 import React from "react";
 import { NavigationProp } from "@react-navigation/native";
+import { accentColor, globalStyles } from "../../theme/styles";
 
 interface CloseModalButton {
   title: string;
@@ -8,7 +9,11 @@ interface CloseModalButton {
 }
 
 const CloseModalButton: React.FC<CloseModalButton> = ({ title, navigation }) => {
-  return <Button title={title} onPress={() => navigation.goBack()} />;
+  return (
+    <Pressable onPress={() => navigation.goBack()} style={globalStyles.container}>
+      <Text style={{ color: accentColor }}>{title}</Text>
+    </Pressable>
+  );
 };
 
 export default CloseModalButton;

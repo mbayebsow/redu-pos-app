@@ -16,7 +16,9 @@
         "expo-barcode-scanner",
         {
           "cameraPermission": "Autorisez $(PRODUCT_NAME) à accéder à la caméra."
-        },
+        }
+      ],
+      [
         "expo-image-picker",
         {
           "photosPermission": "Allow $(PRODUCT_NAME) to access your photos",

@@ -5,7 +5,7 @@ import { accentColor, globalStyles, lightColor } from "../../theme/styles";
 interface InputProps {
   label?: string;
   icon?: React.ReactNode;
-  value?: string;
+  value?: string | undefined;
   placholder?: string;
   keyboardType?: KeyboardTypeOptions;
   onChange?: (text: string) => void;

@@ -1,27 +1,24 @@
-import React, { useCallback, useEffect, useState } from "react";
-import {
-  Button,
-  NativeScrollEvent,
-  NativeSyntheticEvent,
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import { NativeScrollEvent, NativeSyntheticEvent, StyleSheet, Text, View } from "react-native";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { Barcode, FileText, HandCoins, PackageMinus, SquarePen } from "lucide-react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { globalStyles, lightColor } from "../theme/styles";
+import { globalStyles } from "../theme/styles";
 import Input from "../components/ui/input";
 import ImagePicker from "../components/ui/image-picker";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
+import Button from "../components/ui/button";
 
 const CATEGORIES = Array(7).fill(0);
 
 const AddProductScreen = () => {
   const [isOnTop, setIsOnTop] = useState(true);
   const navigation = useNavigation<NavigationProp<any>>();
-  const { bottom, top } = useSafeAreaInsets();
+  const productNameRef = useRef<string | undefined>();
+  const productPriceRef = useRef<string | undefined>();
+  const productDescriptionRef = useRef<string | undefined>();
+  const productIdentifierRef = useRef<string | undefined>();
+  const productMinStockRef = useRef<string | undefined>();
+  //const { bottom, top } = useSafeAreaInsets();
 
   const handleScroll = useCallback((event: NativeSyntheticEvent<NativeScrollEvent>) => {
     const s = event.nativeEvent.contentOffset.y;
@@ -32,55 +29,64 @@ const AddProductScreen = () => {
     }
   }, []);
 
+  const addProduct = () => {
+    console.log(
+      productNameRef.current,
+      productPriceRef.current,
+      productDescriptionRef.current,
+      productIdentifierRef.current,
+      productMinStockRef.current
+    );
+  };
+
   useEffect(() => {
     navigation.setOptions({
-      headerRight: () => <Button title="Ok" />,
+      headerRight: () => <Button title="Ok" variant="text" onPress={addProduct} />,
+      headerShadowVisible: isOnTop ? false : true,
+      headerStyle: { backgroundColor: isOnTop ? "transparent" : "white" },
     });
-  }, []);
+  }, [isOnTop]);
 
   return (
     <>
-      {!isOnTop && (
-        <View
-          style={{
-            height: top + 5,
-            width: "100%",
-            position: "absolute",
-            top: 0,
-            backgroundColor: "white",
-            zIndex: 10,
-            borderBottomWidth: 1,
-            borderColor: lightColor,
-          }}
-        />
-      )}
-      <KeyboardAwareScrollView
-        style={[styles.inner]}
-        //onScroll={}
-        onScroll={handleScroll}
-        //onScrollBeginDrag={(e) => console.log("target", e.cancelable)}
-      >
-        <View
-          style={{
-            marginBottom: bottom,
-            marginTop: top,
-          }}
-        >
+      <KeyboardAwareScrollView style={[styles.container]} onScroll={handleScroll}>
+        <View style={{ marginBottom: 60 }}>
           <ImagePicker />
 
-          <View
-            style={{
-              flex: 1,
-              padding: 6,
-              borderRadius: 10,
-              backgroundColor: "white",
-            }}
-          >
-            <Input icon={<SquarePen size={20} color="gray" />} label="Nom de produit" />
-            <Input icon={<HandCoins size={20} color="gray" />} label="Prix du produit" />
-            <Input icon={<FileText size={20} color="gray" />} label="Description" />
-            <Input icon={<Barcode size={20} color="gray" />} label="SKU" />
-            <Input icon={<PackageMinus size={20} color="gray" />} label="Minimun stock" />
+          <View style={[styles.inner]}>
+            <Input
+              icon={<SquarePen size={20} color="gray" />}
+              label="Nom de produit"
+              value={productNameRef.current}
+              onChange={(value) => (productNameRef.current = value)}
+            />
+            <Input
+              icon={<HandCoins size={20} color="gray" />}
+              label="Prix du produit"
+              keyboardType="number-pad"
+              value={productPriceRef.current}
+              onChange={(value) => (productPriceRef.current = value)}
+            />
+            <Input
+              icon={<FileText size={20} color="gray" />}
+              label="Description"
+              value={productDescriptionRef.current}
+              onChange={(value) => (productDescriptionRef.current = value)}
+            />
+            <Input
+              icon={<Barcode size={20} color="gray" />}
+              label="SKU"
+              keyboardType="number-pad"
+              value={productIdentifierRef.current}
+              onChange={(value) => (productIdentifierRef.current = value)}
+            />
+            <Input
+              icon={<PackageMinus size={20} color="gray" />}
+              label="Minimun stock"
+              keyboardType="number-pad"
+              value={productMinStockRef.current}
+              onChange={(value) => (productMinStockRef.current = value)}
+            />
 
             <View style={[globalStyles.container]}>
               <View style={[styles.labelContainer]}>
@@ -122,12 +128,14 @@ export default AddProductScreen;
 
 const styles = StyleSheet.create({
   container: {
-    //backgroundColor: "white",
     flex: 1,
+    paddingHorizontal: 12,
   },
   inner: {
     flex: 1,
-    paddingHorizontal: 12,
+    padding: 6,
+    borderRadius: 10,
+    backgroundColor: "white",
   },
   labelContainer: {
     padding: 6,
