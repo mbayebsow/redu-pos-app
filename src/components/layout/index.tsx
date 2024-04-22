@@ -1,4 +1,4 @@
-import { Text } from "react-native";
+import { Pressable, Text } from "react-native";
 import React from "react";
 import {
   Header,
@@ -29,7 +29,11 @@ export const HeaderComponent: React.FC<ScrollHeaderProps & HeaderProps> = ({
   <Header
     noBottomBorder
     showNavBar={showNavBar}
-    headerLeft={<Settings />}
+    headerLeft={
+      <Pressable style={{ padding: 6 }}>
+        <Settings />
+      </Pressable>
+    }
     headerRight={headerRight}
     headerCenter={<Text style={{ fontSize: 16, fontWeight: "bold" }}>{title}</Text>}
   />
