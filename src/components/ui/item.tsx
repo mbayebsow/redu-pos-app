@@ -61,8 +61,8 @@ const Item: React.FC<ItemProps> = forwardRef(({ index, label, note, icon, onPres
         renderRightActions={RightSwipeActions}
         leftThreshold={Infinity}
         onSwipeableOpen={(direction, swipeable) => {
-          console.log(id);
-          console.log(swipeable.props.id);
+          // console.log(id);
+          // console.log(swipeable.props.id);
           //close();
 
           if (direction === "right") {

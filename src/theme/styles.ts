@@ -1,7 +1,8 @@
 import { Theme } from "@react-navigation/native";
 import { StyleProp, StyleSheet, TextStyle } from "react-native";
+import { Color } from "./color";
 
-export const accentColor = "#007bff";
+export const accentColor = Color.primary;
 export const lightColor = "rgba(225, 225, 235, 1)";
 export const backgroundColor = "rgba(245, 245, 250, 1)";
 

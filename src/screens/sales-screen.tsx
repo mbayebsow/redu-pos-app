@@ -1,6 +1,6 @@
 import React from "react";
-import { StyleSheet, View } from "react-native";
-import { backgroundColor } from "../theme/styles";
+import { SectionList, StyleSheet, Text, View } from "react-native";
+import { backgroundColor, lightColor } from "../theme/styles";
 import AppLayout from "../components/layout";
 import SaleItem from "../components/sales";
 import Input from "../components/ui/input";
@@ -19,9 +19,11 @@ const SalesScreen = () => {
 
       <View style={styles.content}>
         <View style={styles.itemsContainer}>
-          {data.map((item, index) => (
-            <SaleItem key={index} index={index} />
-          ))}
+          <View style={styles.itemsContainerInner}>
+            {data.map((item, index) => (
+              <SaleItem key={index} index={index} />
+            ))}
+          </View>
         </View>
       </View>
     </AppLayout>
@@ -45,7 +47,10 @@ const styles = StyleSheet.create({
   },
   itemsContainer: {
     backgroundColor: "white",
-    paddingVertical: 6,
-    //borderRadius: 10,
+    padding: 6,
+  },
+  itemsContainerInner: {
+    backgroundColor: lightColor,
+    gap: 1,
   },
 });

@@ -1,33 +1,138 @@
 import React, { LegacyRef, useRef } from "react";
-import { ShoppingBag } from "lucide-react-native";
-import Item from "../ui/item";
-import { Swipeable } from "react-native-gesture-handler";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
+import { Pressable, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { accentColor, globalStyles, lightColor } from "../../theme/styles";
+import { GestureHandlerRootView, Swipeable } from "react-native-gesture-handler";
+import { BellPlus, Pin, Printer } from "lucide-react-native";
 
 interface SaleItemProps {
-  index: number;
+  index?: number;
 }
+
+const RightSwipeActions = () => {
+  return (
+    <View style={{ flexDirection: "row", gap: 1 }}>
+      <TouchableOpacity
+        onPress={() => {
+          alert("Delete");
+        }}
+        style={{
+          backgroundColor: "orange",
+          justifyContent: "center",
+          alignItems: "center",
+          aspectRatio: 0.5,
+          height: "100%",
+        }}
+      >
+        <BellPlus color="white" />
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        onPress={() => {
+          alert("Delete");
+        }}
+        style={{
+          backgroundColor: accentColor,
+          justifyContent: "center",
+          alignItems: "center",
+          aspectRatio: 0.5,
+          height: "100%",
+        }}
+      >
+        <Printer color="white" />
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        onPress={() => {
+          alert("Delete");
+        }}
+        style={{
+          backgroundColor: "gray",
+          justifyContent: "center",
+          alignItems: "center",
+          aspectRatio: 0.5,
+          height: "100%",
+        }}
+      >
+        <Pin color="white" />
+      </TouchableOpacity>
+    </View>
+  );
+};
 
 const SaleItem: React.FC<SaleItemProps> = ({ index }) => {
   const swipeableRef: LegacyRef<Swipeable> = useRef(null);
   const navigation = useNavigation<NavigationProp<any>>();
 
   const close = () => {
-    if (swipeableRef.current) {
-      swipeableRef.current.close();
-    }
+    setTimeout(() => {
+      swipeableRef.current?.close();
+    }, 2000);
   };
 
   return (
-    <Item
-      onPress={() => navigation.navigate("Sale")}
-      index={index}
-      ref={swipeableRef}
-      label="Nom du produit"
-      note="Boutique - Vente"
-      icon={<ShoppingBag />}
-    />
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <Swipeable
+        // id={id}
+        ref={swipeableRef}
+        shouldCancelWhenOutside
+        renderRightActions={RightSwipeActions}
+        leftThreshold={Infinity}
+        onSwipeableOpen={close}
+      >
+        <Pressable style={styles.container} onPress={() => navigation.navigate("Sale")}>
+          <View style={styles.head}>
+            <Text style={[styles.saleId, globalStyles.headline]}>#001-00000001</Text>
+            <View style={styles.saleTotal}>
+              <Text>50.000</Text>
+            </View>
+          </View>
+          <View>
+            <Text style={[globalStyles.subHead]}>02/04/2024 - Nom du client</Text>
+            <Text style={styles.saleItems}>
+              1 x Produit, 4 x Produit,3 x Produit,2 x Produit, 3 x Produit
+            </Text>
+          </View>
+          <View style={styles.salePaymentStatus}>
+            <Text style={{ fontSize: 11, fontWeight: "600", color: "white" }}>DUE</Text>
+          </View>
+        </Pressable>
+      </Swipeable>
+    </GestureHandlerRootView>
   );
 };
 
 export default SaleItem;
+
+const styles = StyleSheet.create({
+  container: {
+    gap: 0,
+    paddingHorizontal: 6,
+    paddingVertical: 10,
+    backgroundColor: "white",
+  },
+  head: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  saleId: {},
+  saleTotal: {
+    backgroundColor: lightColor,
+    padding: 5,
+    paddingHorizontal: 10,
+    borderRadius: 100,
+  },
+  saleItems: {
+    opacity: 0.6,
+  },
+  salePaymentStatus: {
+    flex: 1,
+    backgroundColor: "red",
+    padding: 5,
+    paddingHorizontal: 10,
+    borderRadius: 100,
+    alignSelf: "flex-start",
+    marginTop: 10,
+  },
+});

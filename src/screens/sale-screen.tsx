@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
-import { accentColor, globalStyles } from "../theme/styles";
-import { Download, HandCoins, PenLine, SquarePen, Undo2, UndoDot } from "lucide-react-native";
-import Product from "../components/products";
+import { accentColor } from "../theme/styles";
+import { Download, HandCoins, PenLine, Undo2 } from "lucide-react-native";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import Button from "../components/ui/button";
+import Product from "../components/products";
 
 const PRODUCTS = Array(5).fill(0);
 
@@ -14,9 +14,9 @@ const SaleScreen = () => {
   useEffect(() => {
     navigation.setOptions({
       headerRight: () => (
-        <View style={{ flexDirection: "row", alignItems: "center", gap: 20 }}>
-          <Button icon={<PenLine size={20} color={accentColor} />} size="small" fill="clear" />
-          <Button icon={<Undo2 size={20} color="red" />} size="small" fill="clear" />
+        <View style={{ flexDirection: "row", alignItems: "center", gap: 30 }}>
+          <Button icon={<Undo2 size={23} color="red" />} size="small" fill="clear" />
+          <Button icon={<PenLine size={23} color={accentColor} />} size="small" fill="clear" />
         </View>
       ),
     });

@@ -1,6 +1,6 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import React from "react";
-import { accentColor } from "../../theme/styles";
+import { accentColor, globalStyles } from "../../theme/styles";
 
 interface FabProps {
   title?: string;
@@ -12,7 +12,7 @@ const Fab: React.FC<FabProps> = ({ title, icon, onPress }) => {
   return (
     <Pressable style={[styles.container, { paddingHorizontal: title ? 20 : 10 }]} onPress={onPress}>
       {icon}
-      {title && <Text style={styles.title}>{title}</Text>}
+      {title && <Text style={[styles.title, globalStyles.title2]}>{title}</Text>}
     </Pressable>
   );
 };
