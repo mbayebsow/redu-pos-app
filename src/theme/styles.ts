@@ -5,13 +5,6 @@ export const accentColor = "#007bff";
 export const lightColor = "rgba(225, 225, 235, 1)";
 export const backgroundColor = "rgba(245, 245, 250, 1)";
 
-export const headerTitleStyle: StyleProp<
-  Pick<TextStyle, "fontFamily" | "fontSize" | "fontWeight">
-> = {
-  fontSize: 25,
-  fontWeight: "bold",
-};
-
 export const AppTheme: Theme = {
   dark: false,
   colors: {
@@ -30,5 +23,21 @@ export const globalStyles = StyleSheet.create({
     paddingTop: 6,
     paddingBottom: 6,
     //backgroundColor: "white",
+  },
+  title1: {
+    fontSize: 20,
+  },
+  title2: {
+    fontSize: 17,
+  },
+  headline: {
+    fontSize: 16,
+    fontWeight: "500",
+  },
+  text: {
+    fontSize: 15,
+  },
+  subHead: {
+    fontSize: 14,
   },
 });

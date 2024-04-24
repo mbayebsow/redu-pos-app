@@ -11,7 +11,7 @@ interface CloseModalButton {
 const CloseModalButton: React.FC<CloseModalButton> = ({ title, navigation }) => {
   return (
     <Pressable onPress={() => navigation.goBack()} style={globalStyles.container}>
-      <Text style={{ color: accentColor }}>{title}</Text>
+      <Text style={[globalStyles.title, { color: accentColor }]}>{title}</Text>
     </Pressable>
   );
 };

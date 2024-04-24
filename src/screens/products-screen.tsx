@@ -2,7 +2,7 @@ import React from "react";
 import { Pressable, StyleSheet, View } from "react-native";
 import { CircleFadingPlus, ListFilter, ScanBarcode, Search } from "lucide-react-native";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
-import { backgroundColor, lightColor } from "../theme/styles";
+import { backgroundColor, globalStyles, lightColor } from "../theme/styles";
 import Input from "../components/ui/input";
 import Button from "../components/ui/button";
 import Product from "../components/products";
@@ -37,8 +37,8 @@ const ProductsScreen = () => {
               <Input placholder="Recherche" icon={<Search size={20} color="gray" />} />
             </View>
             <View style={styles.buttonContainer}>
-              <View>
-                <Button variant="icon" icon={<ListFilter size={20} />} />
+              <View style={globalStyles.container}>
+                <Button color="light" icon={<ListFilter size={20} />} />
               </View>
             </View>
           </View>

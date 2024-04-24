@@ -2,14 +2,13 @@ import {
   Image,
   NativeScrollEvent,
   NativeSyntheticEvent,
-  SafeAreaView,
   ScrollView,
   StyleSheet,
   Text,
   View,
 } from "react-native";
 import React, { useCallback, useEffect, useState } from "react";
-import { backgroundColor, globalStyles, lightColor } from "../theme/styles";
+import { backgroundColor, globalStyles } from "../theme/styles";
 import Button from "../components/ui/button";
 import { PackagePlus, Send } from "lucide-react-native";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
@@ -48,11 +47,13 @@ const ProductScreen = () => {
           />
 
           <View>
-            <Text style={styles.name}>Eau-Minerale-Kirene-pack-12-bouteilles</Text>
+            <Text style={[globalStyles.title1, styles.name]}>
+              Eau-Minerale-Kirene-pack-12-bouteilles
+            </Text>
           </View>
           <View style={styles.buttonContainer}>
-            <Button title="Stock" icon={<PackagePlus color="white" size={20} />} />
-            <Button title="Vente" icon={<Send color="white" size={20} />} />
+            <Button title="Stock" expand="full" icon={<PackagePlus color="white" size={20} />} />
+            <Button title="Vente" expand="full" icon={<Send color="white" size={20} />} />
           </View>
         </View>
 
@@ -136,10 +137,9 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   name: {
-    fontWeight: "500",
+    fontWeight: "600",
     textAlign: "center",
-    width: 230,
-    fontSize: 16,
+    width: 300,
   },
   price: {
     opacity: 0.6,
@@ -147,6 +147,7 @@ const styles = StyleSheet.create({
     //fontSize: 12,
   },
   buttonContainer: {
+    gap: 10,
     flexDirection: "row",
     alignItems: "center",
   },
@@ -157,11 +158,20 @@ const styles = StyleSheet.create({
   },
   list: {
     width: "100%",
-    gap: 5,
+    gap: 6,
     marginBottom: 20,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 1.41,
+
+    elevation: 2,
   },
   listLabel: {
-    opacity: 0.7,
+    opacity: 0.5,
     marginLeft: 12,
   },
   listItemContainer: {
@@ -169,13 +179,12 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     borderRadius: 10,
     width: "100%",
-    padding: 2,
-    //padding: 6,
+    //padding: 2,
   },
   listItemInner: {
     borderRadius: 9,
     overflow: "hidden",
-    gap: 2,
+    gap: 1,
   },
   listItem: {
     flexDirection: "row",

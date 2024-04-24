@@ -17,8 +17,10 @@ const Product = () => {
       </View>
       <View style={styles.textContainer}>
         <View style={[globalStyles.container, { flex: 1 }]}>
-          <Text style={styles.name}>Eau-Minerale-Kirene-pack-12-bouteilles</Text>
-          <Text style={styles.price}>Boissons</Text>
+          <Text style={[globalStyles.subHead, styles.price]}>Boissons</Text>
+          <Text style={[globalStyles.headline, styles.name]}>
+            Eau-Minerale-Kirene-pack-12-bouteilles
+          </Text>
           <Text style={styles.price}>2 500 FCFA - 002283748</Text>
         </View>
         <View style={styles.unitContainer}>
@@ -70,10 +72,7 @@ const styles = StyleSheet.create({
   unit: {
     color: "white",
   },
-  name: {
-    //fontWeight: "700",
-    fontSize: 15,
-  },
+  name: {},
   price: {
     opacity: 0.6,
     //fontSize: 12,

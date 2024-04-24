@@ -8,6 +8,7 @@ import {
   ScrollViewWithHeaders,
 } from "@codeherence/react-native-header";
 import { Settings } from "lucide-react-native";
+import { backgroundColor } from "../../theme/styles";
 
 interface AppLayoutProps {
   title: string;

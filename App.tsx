@@ -14,6 +14,8 @@ import StoreScreen from "./src/screens/store-screen";
 import AddProductScreen from "./src/screens/add-product-screen";
 import CloseModalButton from "./src/components/shared/close-modal-button";
 import ProductScreen from "./src/screens/product-screen";
+import SaleScreen from "./src/screens/sale-screen";
+import { Text } from "react-native";
 
 const Tab = createBottomTabNavigator();
 const RootStack = createNativeStackNavigator();
@@ -77,6 +79,13 @@ const Routes = () => {
           component={ProductScreen}
           options={{
             headerTransparent: true,
+            headerTitle: "",
+          }}
+        />
+        <RootStack.Screen
+          name="Sale"
+          component={SaleScreen}
+          options={{
             headerTitle: "",
           }}
         />

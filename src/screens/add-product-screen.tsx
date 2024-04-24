@@ -41,7 +41,7 @@ const AddProductScreen = () => {
 
   useEffect(() => {
     navigation.setOptions({
-      headerRight: () => <Button title="Ok" variant="text" onPress={addProduct} />,
+      headerRight: () => <Button title="Ok" fill="clear" onPress={addProduct} />,
       headerShadowVisible: isOnTop ? false : true,
       headerStyle: { backgroundColor: isOnTop ? backgroundColor : "white" },
     });

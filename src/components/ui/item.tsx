@@ -1,8 +1,9 @@
-import { Alert, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Alert, Pressable, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React, { LegacyRef, RefAttributes, forwardRef, useId, useRef } from "react";
 import { ChevronRight, Pen, Trash } from "lucide-react-native";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { globalStyles } from "../../theme/styles";
 
 interface ItemProps {
   ref?: LegacyRef<Swipeable>;
@@ -71,19 +72,19 @@ const Item: React.FC<ItemProps> = forwardRef(({ index, label, note, icon, onPres
           }
         }}
       >
-        <View style={styles.container}>
+        <Pressable onPress={onPress} style={styles.container}>
           <View style={styles.leftContainer}>
             <View style={styles.imageContainer}>{icon}</View>
           </View>
 
           <View style={styles.righContainer}>
             <View style={{}}>
-              <Text style={styles.label}>{label}</Text>
-              <Text style={styles.note}>{note}</Text>
+              <Text style={[globalStyles.headline, styles.label]}>{label}</Text>
+              <Text style={[globalStyles.subHead, styles.note]}>{note}</Text>
             </View>
             <ChevronRight />
           </View>
-        </View>
+        </Pressable>
       </Swipeable>
     </GestureHandlerRootView>
   );
@@ -127,12 +128,6 @@ const styles = StyleSheet.create({
     height: "100%",
     width: "100%",
   },
-  label: {
-    fontWeight: "600",
-    fontSize: 15,
-  },
-  note: {
-    opacity: 0.6,
-    fontSize: 13,
-  },
+  label: {},
+  note: { opacity: 0.7 },
 });
