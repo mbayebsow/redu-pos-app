@@ -3,7 +3,7 @@ import { NativeScrollEvent, NativeSyntheticEvent, StyleSheet, Text, View } from 
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { Barcode, FileText, HandCoins, PackageMinus, SquarePen } from "lucide-react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { globalStyles } from "../theme/styles";
+import { globalStyles, backgroundColor } from "../theme/styles";
 import Input from "../components/ui/input";
 import ImagePicker from "../components/ui/image-picker";
 import Button from "../components/ui/button";
@@ -43,7 +43,7 @@ const AddProductScreen = () => {
     navigation.setOptions({
       headerRight: () => <Button title="Ok" variant="text" onPress={addProduct} />,
       headerShadowVisible: isOnTop ? false : true,
-      headerStyle: { backgroundColor: isOnTop ? "transparent" : "white" },
+      headerStyle: { backgroundColor: isOnTop ? backgroundColor : "white" },
     });
   }, [isOnTop]);
 

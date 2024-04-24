@@ -1,4 +1,4 @@
-import { Pressable, Text } from "react-native";
+import { Pressable, StyleProp, Text, ViewStyle } from "react-native";
 import React from "react";
 import {
   Header,
@@ -14,6 +14,7 @@ interface AppLayoutProps {
   children: React.ReactNode;
   headerRight?: React.ReactNode;
   stickyHeaderIndices?: number[];
+  contentContainerStyle?: StyleProp<ViewStyle>;
 }
 
 interface HeaderProps {
@@ -58,6 +59,7 @@ const AppLayout: React.FC<AppLayoutProps> = ({
   children,
   headerRight,
   stickyHeaderIndices,
+  contentContainerStyle,
 }) => {
   return (
     <ScrollViewWithHeaders
@@ -66,6 +68,7 @@ const AppLayout: React.FC<AppLayoutProps> = ({
       )}
       LargeHeaderComponent={(props) => <LargeHeaderComponent {...props} title={title} />}
       stickyHeaderIndices={stickyHeaderIndices}
+      contentContainerStyle={contentContainerStyle}
     >
       {children}
     </ScrollViewWithHeaders>

@@ -12,8 +12,8 @@ import SalesScreen from "./src/screens/sales-screen";
 import CategoryScreen from "./src/screens/category-screen";
 import StoreScreen from "./src/screens/store-screen";
 import AddProductScreen from "./src/screens/add-product-screen";
-import { Text } from "react-native";
 import CloseModalButton from "./src/components/shared/close-modal-button";
+import ProductScreen from "./src/screens/product-screen";
 
 const Tab = createBottomTabNavigator();
 const RootStack = createNativeStackNavigator();
@@ -73,9 +73,19 @@ const Routes = () => {
       <RootStack.Group>
         <RootStack.Screen name="Home" component={TabNavigation} options={{ headerShown: false }} />
         <RootStack.Screen
-          name="ScannerScreen"
+          name="Product"
+          component={ProductScreen}
+          options={{
+            headerTransparent: true,
+            headerTitle: "",
+          }}
+        />
+        <RootStack.Screen
+          name="Scanner"
           component={ScannerScreen}
-          options={{ headerTransparent: true, headerTitle: "" }}
+          options={{
+            headerTransparent: true,
+          }}
         />
       </RootStack.Group>
 
@@ -83,10 +93,8 @@ const Routes = () => {
         screenOptions={({ navigation }) => ({
           presentation: "modal",
           headerTitle: "Ajouter un produit",
-          //headerShadowVisible: false,
-          //headerLargeTitle: true,
           headerLeft: () => <CloseModalButton title="Annuler" navigation={navigation} />,
-          headerStyle: { backgroundColor: "transparent" },
+          headerStyle: { backgroundColor },
         })}
       >
         <RootStack.Screen name="AddProduct" component={AddProductScreen} />

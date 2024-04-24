@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
-import { CircleFadingPlus } from "lucide-react-native";
+import { CircleFadingPlus, Search } from "lucide-react-native";
 import { backgroundColor } from "../theme/styles";
 import Input from "../components/ui/input";
 import CategoryItem from "../components/category";
@@ -13,7 +13,7 @@ const CategoryScreen = () => {
     <AppLayout title="Catégories" stickyHeaderIndices={[1]} headerRight={<CircleFadingPlus />}>
       <View style={[styles.filterContainer]}>
         <View style={styles.inputContainer}>
-          <Input />
+          <Input placholder="Recherche" icon={<Search size={20} color="gray" />} />
         </View>
       </View>
 
@@ -33,18 +33,20 @@ export default CategoryScreen;
 const styles = StyleSheet.create({
   filterContainer: {
     flexDirection: "row",
+    paddingHorizontal: 6,
+    paddingBottom: 4,
     backgroundColor: backgroundColor,
   },
   inputContainer: {
     flex: 1,
-    paddingHorizontal: 6,
+    //paddingHorizontal: 6,
   },
   content: {
-    padding: 12,
+    //padding: 12,
   },
   itemsContainer: {
     backgroundColor: "white",
     paddingVertical: 6,
-    borderRadius: 10,
+    //borderRadius: 10,
   },
 });

@@ -4,6 +4,7 @@ import { backgroundColor } from "../theme/styles";
 import AppLayout from "../components/layout";
 import SaleItem from "../components/sales";
 import Input from "../components/ui/input";
+import { Search } from "lucide-react-native";
 
 const data = Array(50).fill(0);
 
@@ -11,7 +12,7 @@ const SalesScreen = () => {
   return (
     <AppLayout title="ventes" stickyHeaderIndices={[1]}>
       <View style={styles.inputContainer}>
-        <Input />
+        <Input placholder="Recherche" icon={<Search size={20} color="gray" />} />
       </View>
 
       <View style={styles.content}>
@@ -30,19 +31,19 @@ export default SalesScreen;
 const styles = StyleSheet.create({
   filterContainer: {
     flexDirection: "row",
-    backgroundColor: "white",
+    paddingHorizontal: 6,
+    paddingBottom: 4,
+    backgroundColor: backgroundColor,
   },
   inputContainer: {
     flex: 1,
-    paddingHorizontal: 6,
-    backgroundColor: backgroundColor,
   },
   content: {
-    padding: 12,
+    //padding: 12,
   },
   itemsContainer: {
     backgroundColor: "white",
     paddingVertical: 6,
-    borderRadius: 10,
+    //borderRadius: 10,
   },
 });

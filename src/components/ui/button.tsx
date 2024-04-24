@@ -24,7 +24,7 @@ const Button: React.FC<ButtonProps> = ({ title, icon, children, onPress, variant
   };
 
   return (
-    <View style={[globalStyles.container]}>
+    <View style={[globalStyles.container, { flex: 1 }]}>
       <Pressable onPress={onPress} style={[styles.button, dynamicButtonStyles]}>
         {icon}
         {title && variant !== "icon" ? (
@@ -49,6 +49,6 @@ const styles = StyleSheet.create({
     gap: 10,
   },
   title: {
-    fontWeight: "bold",
+    //fontWeight: "bold",
   },
 });
