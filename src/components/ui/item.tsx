@@ -4,6 +4,7 @@ import { ChevronRight, Pen, Trash } from "lucide-react-native";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { globalStyles } from "../../theme/styles";
+import { Color } from "../../theme/color";
 
 interface ItemProps {
   ref?: LegacyRef<Swipeable>;
@@ -120,7 +121,7 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     aspectRatio: 1,
     height: 50,
-    backgroundColor: "rgba(230, 230, 232, 1)",
+    backgroundColor: Color.grayscale[100],
     justifyContent: "center",
     alignItems: "center",
   },

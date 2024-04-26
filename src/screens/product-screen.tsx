@@ -8,10 +8,11 @@ import {
   View,
 } from "react-native";
 import React, { useCallback, useEffect, useState } from "react";
-import { backgroundColor, globalStyles } from "../theme/styles";
+import { backgroundColor, borderColor, globalStyles, lightColor } from "../theme/styles";
 import Button from "../components/ui/button";
 import { PackagePlus, Send } from "lucide-react-native";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
+import { Color } from "../theme/color";
 
 const ProductScreen = () => {
   const [isOnTop, setIsOnTop] = useState(true);
@@ -31,7 +32,6 @@ const ProductScreen = () => {
     navigation.setOptions({
       //headerRight: () => <Button title="Ok" variant="text" onPress={addProduct} />,
       headerShadowVisible: isOnTop ? false : true,
-      headerStyle: { backgroundColor: isOnTop ? backgroundColor : "white" },
     });
   }, [isOnTop]);
 
@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     paddingBottom: 40,
-    paddingTop: 100,
+    //paddingTop: 100,
     gap: 20,
   },
   topContainer: {
@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
   },
   image: {
     aspectRatio: 1,
-    height: 170,
+    width: "100%",
     borderRadius: 10,
   },
   name: {
@@ -160,22 +160,15 @@ const styles = StyleSheet.create({
     width: "100%",
     gap: 6,
     marginBottom: 20,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.2,
-    shadowRadius: 1.41,
-
-    elevation: 2,
   },
   listLabel: {
     opacity: 0.5,
     marginLeft: 12,
   },
   listItemContainer: {
-    backgroundColor: backgroundColor,
+    backgroundColor: borderColor,
+    borderWidth: 1,
+    borderColor: borderColor,
     overflow: "hidden",
     borderRadius: 10,
     width: "100%",
@@ -189,7 +182,7 @@ const styles = StyleSheet.create({
   listItem: {
     flexDirection: "row",
     justifyContent: "space-between",
-    backgroundColor: "white",
+    backgroundColor: lightColor,
     padding: 12,
     paddingVertical: 15,
   },

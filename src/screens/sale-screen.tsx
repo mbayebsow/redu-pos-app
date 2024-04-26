@@ -5,6 +5,7 @@ import { Download, HandCoins, PenLine, Undo2 } from "lucide-react-native";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import Button from "../components/ui/button";
 import Product from "../components/products";
+import { Color } from "../theme/color";
 
 const PRODUCTS = Array(5).fill(0);
 
@@ -71,7 +72,7 @@ const styles = StyleSheet.create({
   },
   paymentContainer: {
     gap: 10,
-    backgroundColor: "yellow",
+    backgroundColor: Color.warning.fill,
     flexDirection: "row",
     alignItems: "center",
     paddingVertical: 10,

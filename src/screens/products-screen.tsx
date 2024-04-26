@@ -2,7 +2,7 @@ import React from "react";
 import { Pressable, StyleSheet, View } from "react-native";
 import { CircleFadingPlus, ListFilter, ScanBarcode, Search } from "lucide-react-native";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
-import { backgroundColor, globalStyles, lightColor } from "../theme/styles";
+import { accentColor, backgroundColor, globalStyles, lightColor } from "../theme/styles";
 import Input from "../components/ui/input";
 import Button from "../components/ui/button";
 import Product from "../components/products";
@@ -15,7 +15,7 @@ const ActionButton = () => {
   const navigation = useNavigation<NavigationProp<any>>();
   return (
     <Pressable onPress={() => navigation.navigate("AddProduct")} style={styles.addProductButton}>
-      <CircleFadingPlus />
+      <CircleFadingPlus color={accentColor} />
     </Pressable>
   );
 };
@@ -51,7 +51,7 @@ const ProductsScreen = () => {
         </View>
       </AppLayout>
       <Fab
-        title="scanner"
+        title="Scanner"
         icon={<ScanBarcode color="white" />}
         onPress={() => navigation.navigate("Scanner")}
       />

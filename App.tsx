@@ -3,11 +3,10 @@ import { StatusBar } from "expo-status-bar";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { Boxes, HandCoins, LayoutGrid, Plus, Store } from "lucide-react-native";
+import { Boxes, HandCoins, LayoutGrid } from "lucide-react-native";
 import { AppTheme, backgroundColor } from "./src/theme/styles";
 import ProductsScreen from "./src/screens/products-screen";
 import ScannerScreen from "./src/screens/scanner-screen";
-import Button from "./src/components/ui/button";
 import SalesScreen from "./src/screens/sales-screen";
 import CategoryScreen from "./src/screens/category-screen";
 import StoreScreen from "./src/screens/store-screen";
@@ -15,7 +14,7 @@ import AddProductScreen from "./src/screens/add-product-screen";
 import CloseModalButton from "./src/components/shared/close-modal-button";
 import ProductScreen from "./src/screens/product-screen";
 import SaleScreen from "./src/screens/sale-screen";
-import { Text } from "react-native";
+import SpaceScreen from "./src/screens/space-screen";
 
 const Tab = createBottomTabNavigator();
 const RootStack = createNativeStackNavigator();
@@ -33,9 +32,6 @@ const TabNavigation = () => {
         component={ProductsScreen}
         options={{
           tabBarIcon: ({ color, size }) => <Boxes color={color} size={size} />,
-          headerRight: (props) => {
-            return <Button title="Ajouter" icon={<Plus size={20} color="white" />} />;
-          },
         }}
       />
       <Tab.Screen
@@ -46,23 +42,10 @@ const TabNavigation = () => {
         }}
       />
       <Tab.Screen
-        name="Catégories"
-        component={CategoryScreen}
+        name="Space"
+        component={SpaceScreen}
         options={{
           tabBarIcon: ({ color, size }) => <LayoutGrid color={color} size={size} />,
-          headerRight: (props) => {
-            return <Button title="Ajouter" icon={<Plus size={20} color="white" />} />;
-          },
-        }}
-      />
-      <Tab.Screen
-        name="Boutiques"
-        component={StoreScreen}
-        options={{
-          tabBarIcon: ({ color, size }) => <Store color={color} size={size} />,
-          headerRight: (props) => {
-            return <Button title="Ajouter" icon={<Plus size={20} color="white" />} />;
-          },
         }}
       />
     </Tab.Navigator>
@@ -78,7 +61,6 @@ const Routes = () => {
           name="Product"
           component={ProductScreen}
           options={{
-            headerTransparent: true,
             headerTitle: "",
           }}
         />
@@ -96,6 +78,11 @@ const Routes = () => {
             headerTransparent: true,
           }}
         />
+      </RootStack.Group>
+
+      <RootStack.Group>
+        <RootStack.Screen name="Catégories" component={CategoryScreen} />
+        <Tab.Screen name="Boutiques" component={StoreScreen} />
       </RootStack.Group>
 
       <RootStack.Group

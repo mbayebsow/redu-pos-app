@@ -7,8 +7,8 @@ import {
   ScrollHeaderProps,
   ScrollViewWithHeaders,
 } from "@codeherence/react-native-header";
-import { Settings } from "lucide-react-native";
-import { backgroundColor } from "../../theme/styles";
+import { Info } from "lucide-react-native";
+import { accentColor } from "../../theme/styles";
 
 interface AppLayoutProps {
   title: string;
@@ -33,11 +33,12 @@ export const HeaderComponent: React.FC<ScrollHeaderProps & HeaderProps> = ({
     showNavBar={showNavBar}
     headerLeft={
       <Pressable style={{ padding: 6 }}>
-        <Settings />
+        <Info color={accentColor} />
       </Pressable>
     }
     headerRight={headerRight}
     headerCenter={<Text style={{ fontSize: 16, fontWeight: "bold" }}>{title}</Text>}
+    // headerStyle={{ backgroundColor: "red" }}
   />
 );
 

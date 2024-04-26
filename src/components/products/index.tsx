@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
   },
   name: {},
   price: {
-    opacity: 0.6,
+    //opacity: 0.6,
     //fontSize: 12,
   },
 });

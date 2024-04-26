@@ -106,7 +106,7 @@ const Button: React.FC<ButtonProps> = ({
       onPress={onPress}
     >
       {icon}
-      {title && <Text style={{ fontSize: 17, ...getTitleStyle() }}>{title}</Text>}
+      {title && <Text style={{ fontSize: 16, ...getTitleStyle() }}>{title}</Text>}
     </TouchableOpacity>
   );
 };

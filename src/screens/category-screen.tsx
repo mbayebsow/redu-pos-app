@@ -42,10 +42,12 @@ const styles = StyleSheet.create({
     //paddingHorizontal: 6,
   },
   content: {
+    height: "100%",
+    //flex: 1,
+    backgroundColor: "white",
     //padding: 12,
   },
   itemsContainer: {
-    backgroundColor: "white",
     paddingVertical: 6,
     //borderRadius: 10,
   },

@@ -43,9 +43,11 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   content: {
+    flex: 1,
     //padding: 12,
   },
   itemsContainer: {
+    flex: 1,
     backgroundColor: "white",
     padding: 6,
   },

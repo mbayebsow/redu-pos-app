@@ -12,7 +12,7 @@ const Fab: React.FC<FabProps> = ({ title, icon, onPress }) => {
   return (
     <Pressable style={[styles.container, { paddingHorizontal: title ? 20 : 10 }]} onPress={onPress}>
       {icon}
-      {title && <Text style={[styles.title, globalStyles.title2]}>{title}</Text>}
+      {title && <Text style={[styles.title]}>{title}</Text>}
     </Pressable>
   );
 };
@@ -36,5 +36,6 @@ const styles = StyleSheet.create({
   },
   title: {
     color: "#fff",
+    fontSize: 16,
   },
 });
