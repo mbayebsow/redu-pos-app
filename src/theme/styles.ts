@@ -3,8 +3,20 @@ import { StyleSheet } from "react-native";
 import { Color } from "./color";
 
 export const accentColor = Color.primary.fill;
-export const lightColor = Color.grayscale[100];
+export const accentColorContrast = Color.primary.tint;
+export const warningColor = Color.warning.fill;
+export const warningColorContrast = Color.warning.tint;
+export const dangerColor = Color.danger.fill;
+export const dangerColorContrast = Color.danger.tint;
+export const successColor = Color.success.fill;
+export const successColorContrast = Color.success.tint;
+export const lightColor = Color.grayscale[50];
+export const textColor = Color.grayscale[900];
+export const lightTextColor = Color.grayscale[700];
 export const backgroundColor = Color.grayscale[0];
+export const backgroundLightColor = Color.grayscale[50];
+export const backgroundMediumColor = Color.grayscale[100];
+export const inputBackgroundColor = Color.grayscale[100];
 export const borderColor = Color.grayscale[200];
 
 export const AppTheme: Theme = {
@@ -24,29 +36,28 @@ export const globalStyles = StyleSheet.create({
     paddingHorizontal: 6,
     paddingTop: 6,
     paddingBottom: 6,
-    //backgroundColor: "white",
   },
   title1: {
     fontSize: 20,
     fontWeight: "800",
-    color: Color.grayscale[900],
+    color: textColor,
   },
   title2: {
     fontSize: 17,
     fontWeight: "700",
-    color: Color.grayscale[900],
+    color: textColor,
   },
   headline: {
     fontSize: 16,
     fontWeight: "600",
-    color: Color.grayscale[900],
+    color: textColor,
   },
   subHead: {
     fontSize: 14,
-    color: Color.grayscale[600],
+    color: lightTextColor,
   },
   text: {
     fontSize: 15,
-    color: Color.grayscale[900],
+    color: textColor,
   },
 });

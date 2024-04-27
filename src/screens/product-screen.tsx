@@ -8,11 +8,10 @@ import {
   View,
 } from "react-native";
 import React, { useCallback, useEffect, useState } from "react";
-import { backgroundColor, borderColor, globalStyles, lightColor } from "../theme/styles";
+import { backgroundLightColor, borderColor, globalStyles } from "../theme/styles";
 import Button from "../components/ui/button";
 import { PackagePlus, Send } from "lucide-react-native";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
-import { Color } from "../theme/color";
 
 const ProductScreen = () => {
   const [isOnTop, setIsOnTop] = useState(true);
@@ -182,7 +181,7 @@ const styles = StyleSheet.create({
   listItem: {
     flexDirection: "row",
     justifyContent: "space-between",
-    backgroundColor: lightColor,
+    backgroundColor: backgroundLightColor,
     padding: 12,
     paddingVertical: 15,
   },

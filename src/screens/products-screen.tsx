@@ -52,7 +52,7 @@ const ProductsScreen = () => {
       </AppLayout>
       <Fab
         title="Scanner"
-        icon={<ScanBarcode color="white" />}
+        icon={<ScanBarcode color="white" size={20} />}
         onPress={() => navigation.navigate("Scanner")}
       />
     </>

@@ -10,7 +10,7 @@ const data = Array(50).fill(0);
 
 const SalesScreen = () => {
   return (
-    <AppLayout title="ventes" stickyHeaderIndices={[1]}>
+    <AppLayout title="Ventes" stickyHeaderIndices={[1]}>
       <View style={[styles.filterContainer]}>
         <View style={styles.inputContainer}>
           <Input placholder="Recherche" icon={<Search size={20} color="gray" />} />

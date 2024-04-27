@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { View, TextInput, StyleSheet, Text, KeyboardTypeOptions } from "react-native";
-import { accentColor, globalStyles, lightColor } from "../../theme/styles";
+import { backgroundMediumColor, globalStyles } from "../../theme/styles";
 
 interface InputProps {
   label?: string;
@@ -55,8 +55,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: lightColor,
-    borderColor: accentColor,
+    backgroundColor: backgroundMediumColor,
   },
   labelContainer: {
     padding: 6,

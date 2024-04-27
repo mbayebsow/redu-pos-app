@@ -8,7 +8,20 @@ import {
   View,
   TextStyle,
 } from "react-native";
-import { accentColor, globalStyles, lightColor } from "../../theme/styles";
+import {
+  accentColor,
+  accentColorContrast,
+  backgroundMediumColor,
+  dangerColor,
+  dangerColorContrast,
+  globalStyles,
+  lightColor,
+  successColor,
+  successColorContrast,
+  textColor,
+  warningColor,
+  warningColorContrast,
+} from "../../theme/styles";
 
 interface ButtonProps {
   title?: string;
@@ -43,7 +56,7 @@ const Button: React.FC<ButtonProps> = ({
       if (expand === "full") {
         buttonStyle = { ...buttonStyle, flex: 1 };
       } else if (expand === "block") {
-        buttonStyle = { ...buttonStyle, paddingHorizontal: 24 };
+        //buttonStyle = { ...buttonStyle, paddingHorizontal: 24 };
       }
 
       // Shape
@@ -64,8 +77,16 @@ const Button: React.FC<ButtonProps> = ({
         // Color
         if (color === "primary") {
           buttonStyle = { ...buttonStyle, backgroundColor: accentColor };
+        } else if (color === "secondary") {
+          buttonStyle = { ...buttonStyle, backgroundColor: accentColorContrast };
         } else if (color === "light") {
-          buttonStyle = { ...buttonStyle, backgroundColor: lightColor };
+          buttonStyle = { ...buttonStyle, backgroundColor: backgroundMediumColor };
+        } else if (color === "warning") {
+          buttonStyle = { ...buttonStyle, backgroundColor: warningColor };
+        } else if (color === "danger") {
+          buttonStyle = { ...buttonStyle, backgroundColor: dangerColor };
+        } else if (color === "success") {
+          buttonStyle = { ...buttonStyle, backgroundColor: successColor };
         }
       }
 
@@ -86,7 +107,13 @@ const Button: React.FC<ButtonProps> = ({
     let titleStyle: StyleProp<TextStyle> = {};
 
     if (fill === "solid") {
-      titleStyle = { ...titleStyle, color: "white" };
+      if (color === "primary") {
+        titleStyle = { ...titleStyle, color: accentColorContrast };
+      } else if (color === "secondary") {
+        titleStyle = { ...titleStyle, color: accentColor };
+      } else {
+        titleStyle = { ...titleStyle, color: textColor };
+      }
     } else {
       titleStyle = { ...titleStyle, color: accentColor };
     }
@@ -97,7 +124,7 @@ const Button: React.FC<ButtonProps> = ({
   return (
     <TouchableOpacity
       style={{
-        gap: 10,
+        //gap: 15,
         justifyContent: "center",
         alignItems: "center",
         flexDirection: "row",
@@ -105,8 +132,14 @@ const Button: React.FC<ButtonProps> = ({
       }}
       onPress={onPress}
     >
-      {icon}
-      {title && <Text style={{ fontSize: 16, ...getTitleStyle() }}>{title}</Text>}
+      {icon && <View style={{ paddingLeft: title ? 16 : 10, paddingRight: 10 }}>{icon}</View>}
+      {title && (
+        <Text
+          style={{ fontSize: 16, paddingRight: 20, paddingLeft: icon ? 0 : 20, ...getTitleStyle() }}
+        >
+          {title}
+        </Text>
+      )}
     </TouchableOpacity>
   );
 };
