@@ -32,19 +32,19 @@ const ProductsScreen = () => {
         contentContainerStyle={{ paddingBottom: 80 }}
       >
         <View>
-          <View style={[styles.filterContainer]}>
+          <View style={[globalStyles.container, styles.filterContainer]}>
             <View style={styles.inputContainer}>
               <Input placholder="Recherche" icon={<Search size={20} color="gray" />} />
             </View>
             <View style={styles.buttonContainer}>
               <View style={globalStyles.container}>
-                <Button color="light" icon={<ListFilter size={20} />} />
+                <Button color="light" icon={ListFilter} />
               </View>
             </View>
           </View>
         </View>
 
-        <View style={styles.productsContainer}>
+        <View style={[globalStyles.container, styles.productsContainer]}>
           {data.map((item, index) => (
             <Product key={index} />
           ))}
@@ -62,8 +62,6 @@ const ProductsScreen = () => {
 const styles = StyleSheet.create({
   filterContainer: {
     flexDirection: "row",
-    paddingHorizontal: 6,
-    paddingBottom: 4,
     backgroundColor: backgroundColor,
   },
   inputContainer: {
@@ -75,11 +73,10 @@ const styles = StyleSheet.create({
   },
   productsContainer: {
     flex: 1,
-    padding: 6,
     backgroundColor: "white",
   },
   addProductButton: {
-    padding: 6,
+    paddingHorizontal: 10,
   },
 });
 

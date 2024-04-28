@@ -14,9 +14,8 @@ export const lightColor = Color.grayscale[50];
 export const textColor = Color.grayscale[900];
 export const lightTextColor = Color.grayscale[700];
 export const backgroundColor = Color.grayscale[0];
-export const backgroundLightColor = Color.grayscale[50];
-export const backgroundMediumColor = Color.grayscale[100];
-export const inputBackgroundColor = Color.grayscale[100];
+export const backgroundLightColor = Color.grayscale[100];
+export const backgroundMediumColor = Color.grayscale[200];
 export const borderColor = Color.grayscale[200];
 
 export const AppTheme: Theme = {
@@ -33,7 +32,7 @@ export const AppTheme: Theme = {
 
 export const globalStyles = StyleSheet.create({
   container: {
-    paddingHorizontal: 6,
+    paddingHorizontal: 10,
     paddingTop: 6,
     paddingBottom: 6,
   },

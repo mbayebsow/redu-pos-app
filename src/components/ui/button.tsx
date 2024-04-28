@@ -22,10 +22,11 @@ import {
   warningColor,
   warningColorContrast,
 } from "../../theme/styles";
+import { LucideIcon } from "lucide-react-native";
 
 interface ButtonProps {
   title?: string;
-  icon?: React.ReactNode;
+  icon?: LucideIcon;
   expand?: "block" | "full";
   shape?: "round";
   fill?: "clear" | "outline" | "solid";
@@ -107,9 +108,12 @@ const Button: React.FC<ButtonProps> = ({
     let titleStyle: StyleProp<TextStyle> = {};
 
     if (fill === "solid") {
+      titleStyle = { ...titleStyle, paddingRight: 20, paddingLeft: icon ? 0 : 20 };
       if (color === "primary") {
         titleStyle = { ...titleStyle, color: accentColorContrast };
       } else if (color === "secondary") {
+        titleStyle = { ...titleStyle, color: accentColor };
+      } else if (color === "light") {
         titleStyle = { ...titleStyle, color: accentColor };
       } else {
         titleStyle = { ...titleStyle, color: textColor };
@@ -119,6 +123,22 @@ const Button: React.FC<ButtonProps> = ({
     }
 
     return titleStyle;
+  };
+
+  const getIconStyle = () => {
+    if (fill === "solid") {
+      if (color === "primary") {
+        return accentColorContrast;
+      } else if (color === "secondary") {
+        return accentColor;
+      } else if (color === "light") {
+        return accentColor;
+      } else {
+        return textColor;
+      }
+    } else {
+      return accentColor;
+    }
   };
 
   return (
@@ -132,14 +152,12 @@ const Button: React.FC<ButtonProps> = ({
       }}
       onPress={onPress}
     >
-      {icon && <View style={{ paddingLeft: title ? 16 : 10, paddingRight: 10 }}>{icon}</View>}
-      {title && (
-        <Text
-          style={{ fontSize: 16, paddingRight: 20, paddingLeft: icon ? 0 : 20, ...getTitleStyle() }}
-        >
-          {title}
-        </Text>
+      {icon && (
+        <View style={{ paddingLeft: title ? 16 : 10, paddingRight: 10 }}>
+          {React.createElement(icon, { size: 20, color: getIconStyle() })}
+        </View>
       )}
+      {title && <Text style={{ fontSize: 16, ...getTitleStyle() }}>{title}</Text>}
     </TouchableOpacity>
   );
 };

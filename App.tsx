@@ -19,6 +19,24 @@ import SpaceScreen from "./src/screens/space-screen";
 const Tab = createBottomTabNavigator();
 const RootStack = createNativeStackNavigator();
 
+const ProductsPageStack = () => {
+  return (
+    <RootStack.Navigator
+      screenOptions={{
+        headerShown: true,
+        headerLargeTitle: true,
+        headerSearchBarOptions: {
+          placeholder: "Rechercher un produit",
+          hideWhenScrolling: false,
+          obscureBackground: true,
+        },
+      }}
+    >
+      <RootStack.Screen name="Home" component={ProductsScreen} />
+    </RootStack.Navigator>
+  );
+};
+
 const TabNavigation = () => {
   return (
     <Tab.Navigator
@@ -80,8 +98,8 @@ const Routes = () => {
         />
       </RootStack.Group>
 
-      <RootStack.Group>
-        <RootStack.Screen name="Catégories" component={CategoryScreen} />
+      <RootStack.Group screenOptions={{ headerShadowVisible: false }}>
+        <RootStack.Screen name="Categories" component={CategoryScreen} />
         <Tab.Screen name="Boutiques" component={StoreScreen} />
       </RootStack.Group>
 

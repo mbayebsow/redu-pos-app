@@ -1,12 +1,21 @@
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import React from "react";
-import { globalStyles, accentColor, lightColor } from "../../theme/styles";
+import {
+  globalStyles,
+  accentColor,
+  lightColor,
+  borderColor,
+  backgroundMediumColor,
+} from "../../theme/styles";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 
 const Product = () => {
   const navigation = useNavigation<NavigationProp<any>>();
   return (
-    <Pressable style={styles.container} onPress={() => navigation.navigate("Product")}>
+    <Pressable
+      style={[styles.container, globalStyles.container]}
+      onPress={() => navigation.navigate("Product")}
+    >
       <View style={styles.imageContainer}>
         <Image
           style={styles.image}
@@ -37,13 +46,12 @@ const styles = StyleSheet.create({
   container: {
     //flex: 1,
     gap: 5,
-    padding: 5,
     paddingVertical: 7,
     width: "100%",
     flexDirection: "row",
     alignItems: "center",
     borderBottomWidth: 1,
-    borderBottomColor: lightColor,
+    borderBottomColor: borderColor,
   },
   imageContainer: {
     borderRadius: 10,
@@ -64,13 +72,12 @@ const styles = StyleSheet.create({
     gap: 10,
   },
   unitContainer: {
-    backgroundColor: accentColor,
-    paddingVertical: 5,
-    paddingHorizontal: 5,
+    backgroundColor: backgroundMediumColor,
+    padding: 6,
     borderRadius: 100,
   },
   unit: {
-    color: "white",
+    //color: "black",
   },
   name: {},
   price: {

@@ -1,6 +1,12 @@
 import { SafeAreaView, ScrollView, StyleSheet, Text, View } from "react-native";
 import React from "react";
-import { accentColor, backgroundMediumColor, borderColor, globalStyles } from "../theme/styles";
+import {
+  accentColorContrast,
+  backgroundLightColor,
+  backgroundMediumColor,
+  borderColor,
+  globalStyles,
+} from "../theme/styles";
 import {
   BadgeInfo,
   BadgeSwissFranc,
@@ -20,13 +26,17 @@ import {
   Users,
 } from "lucide-react-native";
 import List from "../components/ui/list";
+import Card from "../components/ui/card";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
 
 const SpaceScreen = () => {
+  const navigation = useNavigation<NavigationProp<any>>();
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
-        <View style={styles.inner}>
-          <View style={styles.userContainer}>
+        <View style={[styles.inner, globalStyles.container]}>
+          <View style={[globalStyles.container, styles.userContainer]}>
             <View style={styles.avatarContainer}>
               <User />
             </View>
@@ -39,85 +49,54 @@ const SpaceScreen = () => {
             </View>
           </View>
 
-          <View style={styles.operationsContainer}>
-            <Text style={[globalStyles.subHead, styles.operationsContainerTitle]}>Operations</Text>
-            <View style={styles.operationsInner}>
-              <View style={styles.operationsItemContainer}>
-                <View style={styles.operationsItem}>
-                  <NotebookPen size={27} color={accentColor} />
-                  <Text style={[globalStyles.headline, styles.operationsItemTitle]}>Carnet</Text>
-                  <Text style={[globalStyles.subHead, styles.operationsItemSubTitle]}>
-                    5 au total
-                  </Text>
-                </View>
-              </View>
-              <View style={styles.operationsItemContainer}>
-                <View style={styles.operationsItem}>
-                  <Combine size={27} color={accentColor} />
-                  <Text style={[globalStyles.headline, styles.operationsItemTitle]}>Stock</Text>
-                  <Text style={[globalStyles.subHead, styles.operationsItemSubTitle]}>
-                    5 au total
-                  </Text>
-                </View>
-              </View>
-              <View style={styles.operationsItemContainer}>
-                <View style={styles.operationsItem}>
-                  <BarChartBig size={27} color={accentColor} />
-                  <Text style={[globalStyles.headline, styles.operationsItemTitle]}>Rapport</Text>
-                  <Text style={[globalStyles.subHead, styles.operationsItemSubTitle]}>
-                    5 au total
-                  </Text>
-                </View>
-              </View>
-              <View style={styles.operationsItemContainer}>
-                <View style={styles.operationsItem}>
-                  <Users size={27} color={accentColor} />
-                  <Text style={[globalStyles.headline, styles.operationsItemTitle]}>Équipe</Text>
-                  <Text style={[globalStyles.subHead, styles.operationsItemSubTitle]}>
-                    5 au total
-                  </Text>
-                </View>
-              </View>
-              <View style={styles.operationsItemContainer}>
-                <View style={styles.operationsItem}>
-                  <Store size={27} color={accentColor} />
-                  <Text style={[globalStyles.headline, styles.operationsItemTitle]}>Boutiques</Text>
-                  <Text style={[globalStyles.subHead, styles.operationsItemSubTitle]}>
-                    5 au total
-                  </Text>
-                </View>
-              </View>
-              <View style={styles.operationsItemContainer}>
-                <View style={styles.operationsItem}>
-                  <PackagePlus size={27} color={accentColor} />
-                  <Text style={[globalStyles.headline, styles.operationsItemTitle]}>
-                    Fournisseurs
-                  </Text>
-                  <Text style={[globalStyles.subHead, styles.operationsItemSubTitle]}>
-                    5 au total
-                  </Text>
-                </View>
-              </View>
-              <View style={styles.operationsItemContainer}>
-                <View style={styles.operationsItem}>
-                  <Contact size={27} color={accentColor} />
-                  <Text style={[globalStyles.headline, styles.operationsItemTitle]}>Clients</Text>
-                  <Text style={[globalStyles.subHead, styles.operationsItemSubTitle]}>
-                    5 au total
-                  </Text>
-                </View>
-              </View>
-              <View style={styles.operationsItemContainer}>
-                <View style={styles.operationsItem}>
-                  <BadgeSwissFranc size={27} color={accentColor} />
-                  <Text style={[globalStyles.headline, styles.operationsItemTitle]}>Paiements</Text>
-                  <Text style={[globalStyles.subHead, styles.operationsItemSubTitle]}>
-                    5 au total
-                  </Text>
-                </View>
-              </View>
-            </View>
-          </View>
+          <Card
+            title="Operations"
+            colored
+            columns={2}
+            data={[
+              {
+                title: "Carnet",
+                subTitle: "5 au total",
+                icon: NotebookPen,
+              },
+              {
+                title: "Stock",
+                subTitle: "5 au total",
+                icon: Combine,
+              },
+              {
+                title: "Rapport",
+                subTitle: "5 au total",
+                icon: BarChartBig,
+              },
+              {
+                title: "Équipe",
+                subTitle: "5 au total",
+                icon: Users,
+              },
+              {
+                title: "Boutiques",
+                subTitle: "5 au total",
+                icon: Store,
+                onPress: () => navigation.navigate("Boutiques"),
+              },
+              {
+                title: "Fournisseurs",
+                subTitle: "5 au total",
+                icon: PackagePlus,
+              },
+              {
+                title: "Clients",
+                subTitle: "5 au total",
+                icon: Contact,
+              },
+              {
+                title: "Paiements",
+                subTitle: "5 au total",
+                icon: BadgeSwissFranc,
+              },
+            ]}
+          />
 
           <List
             title="Autres"
@@ -125,6 +104,7 @@ const SpaceScreen = () => {
               {
                 title: "Categories produits",
                 icon: LayoutGrid,
+                onPress: () => navigation.navigate("Categories"),
               },
               {
                 title: "Unités produits",
@@ -169,14 +149,12 @@ export default SpaceScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: backgroundMediumColor,
+    backgroundColor: backgroundLightColor,
   },
   inner: {
-    padding: 12,
     gap: 20,
   },
   userContainer: {
-    padding: 6,
     paddingBottom: 15,
     // flexDirection: "row",
     // alignItems: "center",
@@ -190,38 +168,10 @@ const styles = StyleSheet.create({
     aspectRatio: 1,
     borderRadius: 100,
     height: 60,
-    backgroundColor: borderColor,
+    backgroundColor: accentColorContrast,
   },
   nameContainer: {},
   userName: {},
   userEstablishment: {},
   userPhone: {},
-  operationsContainer: {
-    padding: 2,
-    gap: 5,
-  },
-  operationsInner: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    alignItems: "center",
-  },
-  operationsItemContainer: {
-    aspectRatio: 1.5,
-    width: "50%",
-    padding: 4,
-  },
-  operationsContainerTitle: {
-    paddingHorizontal: 16,
-  },
-  operationsItem: {
-    paddingHorizontal: 20,
-    paddingVertical: 16,
-    gap: 2,
-    backgroundColor: "white",
-    borderRadius: 10,
-  },
-  operationsItemTitle: {
-    marginTop: 7,
-  },
-  operationsItemSubTitle: {},
 });

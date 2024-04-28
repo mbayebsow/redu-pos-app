@@ -8,10 +8,16 @@ import {
   View,
 } from "react-native";
 import React, { useCallback, useEffect, useState } from "react";
-import { backgroundLightColor, borderColor, globalStyles } from "../theme/styles";
+import {
+  accentColorContrast,
+  backgroundLightColor,
+  backgroundMediumColor,
+  globalStyles,
+} from "../theme/styles";
 import Button from "../components/ui/button";
 import { PackagePlus, Send } from "lucide-react-native";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
+import List from "../components/ui/list";
 
 const ProductScreen = () => {
   const [isOnTop, setIsOnTop] = useState(true);
@@ -29,14 +35,17 @@ const ProductScreen = () => {
 
   useEffect(() => {
     navigation.setOptions({
-      //headerRight: () => <Button title="Ok" variant="text" onPress={addProduct} />,
+      headerRight: () => <Button title="Ok" fill="clear" />,
+      headerStyle: {
+        backgroundColor: isOnTop ? backgroundLightColor : "white",
+      },
       headerShadowVisible: isOnTop ? false : true,
     });
   }, [isOnTop]);
 
   return (
-    <ScrollView style={[{ flex: 1 }]} scrollEventThrottle={1} onScroll={handleScroll}>
-      <View style={styles.container}>
+    <ScrollView scrollEventThrottle={1} onScroll={handleScroll} style={styles.container}>
+      <View style={[globalStyles.container, styles.inner]}>
         <View style={[styles.topContainer]}>
           <Image
             style={styles.image}
@@ -51,64 +60,56 @@ const ProductScreen = () => {
             </Text>
           </View>
           <View style={styles.buttonContainer}>
-            <Button title="Stock" expand="full" icon={<PackagePlus color="white" size={20} />} />
-            <Button title="Vente" expand="full" icon={<Send color="white" size={20} />} />
+            <Button title="Stock" expand="full" size="large" icon={PackagePlus} color="secondary" />
+            <Button title="Vente" expand="full" size="large" icon={Send} color="secondary" />
           </View>
         </View>
 
-        <View style={styles.contain}>
-          <View style={styles.list}>
-            <Text style={styles.listLabel}>Stock</Text>
-            <View style={styles.listItemContainer}>
-              <View style={styles.listItemInner}>
-                <View style={styles.listItem}>
-                  <Text style={styles.listItemTiltle}>Stock actuelle</Text>
-                  <Text>2 500</Text>
-                </View>
-                <View style={styles.listItem}>
-                  <Text style={styles.listItemTiltle}>Minimun stock</Text>
-                  <Text>200</Text>
-                </View>
-              </View>
-            </View>
-          </View>
+        <List
+          title="Stock"
+          data={[
+            {
+              title: "Stock actuelle",
+              value: "2 500",
+            },
+            {
+              title: "Minimun stock",
+              value: "200",
+            },
+          ]}
+        />
 
-          <View style={styles.list}>
-            <Text style={styles.listLabel}>Details</Text>
-            <View style={styles.listItemContainer}>
-              <View style={styles.listItemInner}>
-                <View style={styles.listItem}>
-                  <Text style={styles.listItemTiltle}>Prix</Text>
-                  <Text>2 500 FCFA</Text>
-                </View>
-                <View style={styles.listItem}>
-                  <Text style={styles.listItemTiltle}>Coût</Text>
-                  <Text>2 500 FCFA</Text>
-                </View>
-                <View style={styles.listItem}>
-                  <Text style={styles.listItemTiltle}>Categorie</Text>
-                  <Text>Boissons</Text>
-                </View>
-                <View style={styles.listItem}>
-                  <Text style={styles.listItemTiltle}>UPC</Text>
-                  <Text>1234567890123</Text>
-                </View>
-              </View>
-            </View>
-          </View>
+        <List
+          title="Details"
+          data={[
+            {
+              title: "Prix",
+              value: "2 500",
+            },
+            {
+              title: "Coût",
+              value: "2 500",
+            },
+            {
+              title: "Categorie",
+              value: "Boissons",
+            },
+            {
+              title: "UPC",
+              value: "1234567890123",
+            },
+          ]}
+        />
 
-          <View style={styles.list}>
-            <Text style={styles.listLabel}>Quantité</Text>
-            <View style={styles.listItemContainer}>
-              <View style={styles.listItemInner}>
-                <View style={styles.listItem}>
-                  <Text style={styles.listItemTiltle}>Magasin principal</Text>
-                  <Text>20</Text>
-                </View>
-              </View>
-            </View>
-          </View>
-        </View>
+        <List
+          title="Quantité"
+          data={[
+            {
+              title: "Magasin principal",
+              value: "200",
+            },
+          ]}
+        />
       </View>
     </ScrollView>
   );
@@ -119,6 +120,10 @@ export default ProductScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: backgroundLightColor,
+  },
+  inner: {
+    flex: 1,
     alignItems: "center",
     paddingBottom: 40,
     //paddingTop: 100,
@@ -126,14 +131,16 @@ const styles = StyleSheet.create({
   },
   topContainer: {
     alignItems: "center",
-    marginTop: 0,
     gap: 20,
-    paddingHorizontal: 20,
+    paddingHorizontal: 10,
+    paddingTop: 20,
+    paddingBottom: 10,
   },
   image: {
     aspectRatio: 1,
-    width: "100%",
+    width: "70%",
     borderRadius: 10,
+    backgroundColor: backgroundMediumColor,
   },
   name: {
     fontWeight: "600",
@@ -149,44 +156,5 @@ const styles = StyleSheet.create({
     gap: 10,
     flexDirection: "row",
     alignItems: "center",
-  },
-  contain: {
-    backgroundColor: "white",
-    width: "100%",
-    padding: 20,
-  },
-  list: {
-    width: "100%",
-    gap: 6,
-    marginBottom: 20,
-  },
-  listLabel: {
-    opacity: 0.5,
-    marginLeft: 12,
-  },
-  listItemContainer: {
-    backgroundColor: borderColor,
-    borderWidth: 1,
-    borderColor: borderColor,
-    overflow: "hidden",
-    borderRadius: 10,
-    width: "100%",
-    //padding: 2,
-  },
-  listItemInner: {
-    borderRadius: 9,
-    overflow: "hidden",
-    gap: 1,
-  },
-  listItem: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    backgroundColor: backgroundLightColor,
-    padding: 12,
-    paddingVertical: 15,
-  },
-  listItemTiltle: {
-    fontWeight: "500",
-    fontSize: 15,
   },
 });

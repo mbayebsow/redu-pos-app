@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { accentColor, accentColorContrast, borderColor, globalStyles } from "../../theme/styles";
 import { ChevronRight, LucideIcon } from "lucide-react-native";
@@ -8,30 +8,35 @@ interface ListProps {
   data: {
     title: string;
     icon?: LucideIcon;
+    value?: string;
     onPress?: () => void;
   }[];
 }
 
 const List: React.FC<ListProps> = ({ title, data }) => {
   return (
-    <View style={styles.listContainer}>
+    <View style={[globalStyles.container, styles.listContainer]}>
       <View style={styles.list}>
         {title && <Text style={[globalStyles.subHead, styles.listLabel]}>{title}</Text>}
 
         <View style={styles.listItemContainer}>
           <View style={styles.listItemInner}>
             {data.map((item, i) => (
-              <View key={i} style={styles.listItem}>
+              <Pressable onPress={item.onPress} key={i} style={styles.listItem}>
                 <View style={styles.listItemLeft}>
                   {item.icon && (
                     <View style={styles.listItemIconContainer}>
-                      {React.createElement(item.icon, { size: 17, color: accentColor })}
+                      {React.createElement(item.icon, { size: 20, color: accentColor })}
                     </View>
                   )}
                   <Text style={styles.listItemTiltle}>{item.title}</Text>
                 </View>
-                <ChevronRight size={20} color={accentColor} />
-              </View>
+                {item.value ? (
+                  <Text style={styles.listItemValue}>{item.value}</Text>
+                ) : (
+                  <ChevronRight size={20} color={accentColor} />
+                )}
+              </Pressable>
             ))}
           </View>
         </View>
@@ -43,12 +48,10 @@ const List: React.FC<ListProps> = ({ title, data }) => {
 export default List;
 
 const styles = StyleSheet.create({
-  listContainer: {
-    padding: 6,
-  },
+  listContainer: { width: "100%" },
   list: {
     width: "100%",
-    gap: 6,
+    gap: 10,
   },
   listLabel: {
     marginLeft: 12,
@@ -84,10 +87,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     aspectRatio: 1,
     borderRadius: 5,
-    height: 30,
+    height: 35,
   },
   listItemTiltle: {
     fontWeight: "500",
     fontSize: 15,
   },
+  listItemValue: {},
 });

@@ -32,7 +32,7 @@ export const HeaderComponent: React.FC<ScrollHeaderProps & HeaderProps> = ({
     noBottomBorder
     showNavBar={showNavBar}
     headerLeft={
-      <Pressable style={{ padding: 6 }}>
+      <Pressable style={{ paddingHorizontal: 10 }}>
         <Info color={accentColor} />
       </Pressable>
     }
@@ -69,6 +69,7 @@ const AppLayout: React.FC<AppLayoutProps> = ({
         <HeaderComponent {...props} title={title} headerRight={headerRight} />
       )}
       LargeHeaderComponent={(props) => <LargeHeaderComponent {...props} title={title} />}
+      largeHeaderContainerStyle={{ paddingHorizontal: 10 }}
       stickyHeaderIndices={stickyHeaderIndices}
       contentContainerStyle={contentContainerStyle}
     >

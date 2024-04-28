@@ -1,6 +1,6 @@
 import React from "react";
 import { SectionList, StyleSheet, Text, View } from "react-native";
-import { backgroundColor, lightColor } from "../theme/styles";
+import { backgroundColor, globalStyles, lightColor } from "../theme/styles";
 import AppLayout from "../components/layout";
 import SaleItem from "../components/sales";
 import Input from "../components/ui/input";
@@ -11,13 +11,13 @@ const data = Array(50).fill(0);
 const SalesScreen = () => {
   return (
     <AppLayout title="Ventes" stickyHeaderIndices={[1]}>
-      <View style={[styles.filterContainer]}>
+      <View style={[globalStyles.container, styles.filterContainer]}>
         <View style={styles.inputContainer}>
           <Input placholder="Recherche" icon={<Search size={20} color="gray" />} />
         </View>
       </View>
 
-      <View style={styles.content}>
+      <View style={[globalStyles.container, styles.content]}>
         <View style={styles.itemsContainer}>
           <View style={styles.itemsContainerInner}>
             {data.map((item, index) => (
@@ -35,8 +35,6 @@ export default SalesScreen;
 const styles = StyleSheet.create({
   filterContainer: {
     flexDirection: "row",
-    paddingHorizontal: 6,
-    paddingBottom: 4,
     backgroundColor: backgroundColor,
   },
   inputContainer: {
