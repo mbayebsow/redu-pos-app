@@ -41,7 +41,7 @@ const TabNavigation = () => {
   return (
     <Tab.Navigator
       screenOptions={{
-        tabBarStyle: { marginBottom: 5 },
+        tabBarStyle: { paddingBottom: 10, height: 60 },
         headerShown: false,
       }}
     >
@@ -89,13 +89,7 @@ const Routes = () => {
             headerTitle: "",
           }}
         />
-        <RootStack.Screen
-          name="Scanner"
-          component={ScannerScreen}
-          options={{
-            headerTransparent: true,
-          }}
-        />
+        <RootStack.Screen name="Scanner" component={ScannerScreen} />
       </RootStack.Group>
 
       <RootStack.Group screenOptions={{ headerShadowVisible: false }}>

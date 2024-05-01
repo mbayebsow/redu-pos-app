@@ -1,13 +1,6 @@
 import React, { useEffect } from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
-import {
-  accentColor,
-  accentColorContrast,
-  dangerColor,
-  dangerColorContrast,
-  successColor,
-  successColorContrast,
-} from "../theme/styles";
+import { accentColor, accentColorContrast } from "../theme/styles";
 import { Download, HandCoins, PenLine, Undo2 } from "lucide-react-native";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import Button from "../components/ui/button";
@@ -22,8 +15,8 @@ const SaleScreen = () => {
     navigation.setOptions({
       headerRight: () => (
         <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
-          <Button icon={<Undo2 size={23} color="red" />} size="small" fill="clear" />
-          <Button icon={<PenLine size={23} color={accentColor} />} size="small" fill="clear" />
+          <Button icon={Undo2} size="small" fill="clear" />
+          <Button icon={PenLine} size="small" fill="clear" />
         </View>
       ),
     });
@@ -40,12 +33,7 @@ const SaleScreen = () => {
           </View>
           <Text style={styles.adjustDate}>24 avril 2024 à 17:30</Text>
         </View>
-        <Button
-          title="Partiel"
-          color="warning"
-          shape="round"
-          icon={<HandCoins color="black" size={20} />}
-        />
+        <Button title="Partiel" color="warning" shape="round" icon={HandCoins} />
       </View>
 
       <ScrollView style={{ flex: 1 }}>

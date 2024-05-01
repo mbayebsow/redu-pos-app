@@ -34,7 +34,7 @@ const SpaceScreen = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView>
+      <ScrollView style={{ flex: 1 }}>
         <View style={[styles.inner, globalStyles.container]}>
           <View style={[globalStyles.container, styles.userContainer]}>
             <View style={styles.avatarContainer}>
@@ -152,6 +152,7 @@ const styles = StyleSheet.create({
     backgroundColor: backgroundLightColor,
   },
   inner: {
+    marginVertical: 20,
     gap: 20,
   },
   userContainer: {
@@ -168,7 +169,9 @@ const styles = StyleSheet.create({
     aspectRatio: 1,
     borderRadius: 100,
     height: 60,
-    backgroundColor: accentColorContrast,
+    borderWidth: 1,
+    borderColor,
+    backgroundColor: "gray",
   },
   nameContainer: {},
   userName: {},

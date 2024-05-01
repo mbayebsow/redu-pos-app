@@ -44,8 +44,8 @@ const ScannerScreen = () => {
   }
 
   return (
-    <View style={[styles.container]}>
-      <SafeAreaView>
+    <SafeAreaView style={styles.container}>
+      <View style={[styles.inner]}>
         <View style={[styles.cameraContainer, { paddingTop: top }]}>
           <CameraView
             onBarcodeScanned={scanned ? undefined : handleBarCodeScanned}
@@ -64,21 +64,17 @@ const ScannerScreen = () => {
             style={[styles.camera]}
           />
         </View>
-      </SafeAreaView>
 
-      <View style={styles.resultContainer}>
-        {scanned && (
-          <View style={styles.rescan}>
-            <Button
-              title="Re-scan"
-              icon={<X size={20} color="white" />}
-              onPress={() => setScanned(false)}
-            />
-          </View>
-        )}
-        <Text>{result}</Text>
+        <View style={styles.resultContainer}>
+          {scanned && (
+            <View style={styles.rescan}>
+              <Button title="Re-scan" icon={X} onPress={() => setScanned(false)} />
+            </View>
+          )}
+          <Text>{result}</Text>
+        </View>
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -86,6 +82,9 @@ export default ScannerScreen;
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
+  },
+  inner: {
     flex: 1,
     //backgroundColor: bac,
   },

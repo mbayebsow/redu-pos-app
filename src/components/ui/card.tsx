@@ -24,7 +24,7 @@ const Card: React.FC<CardProps> = ({ title, columns = 1, data, colored }) => {
         {data?.map((item, i) => (
           <Pressable
             onPress={item.onPress}
-            style={[styles.cardItemContainer, { width: `${100 / columns - 1}%` }]}
+            style={[styles.cardItemContainer, { width: `${100 / columns - 1.1}%` }]}
             key={i}
           >
             <View
