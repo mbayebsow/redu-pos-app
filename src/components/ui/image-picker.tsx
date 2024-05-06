@@ -1,25 +1,32 @@
-import React, { useState } from "react";
-import { Image, Pressable, StyleSheet, Text, View } from "react-native";
-import * as Imagepicker from "expo-image-picker";
-import { globalStyles, lightColor } from "../../theme/styles";
+import React, { useCallback, useState } from "react";
+import { Image, StyleSheet, View } from "react-native";
+import { MediaTypeOptions, launchImageLibraryAsync } from "expo-image-picker";
+import { backgroundLightColor, globalStyles, lightColor } from "../../theme/styles";
+import Button from "./button";
 
-const ImagePicker = () => {
+interface ImagePickerProps {
+  productImageRef: React.MutableRefObject<string | undefined>;
+}
+
+const ImagePicker = ({ productImageRef }: ImagePickerProps) => {
   const [image, setImage] = useState<null | string>(null);
-  const pickImage = async () => {
+
+  const pickImage = useCallback(async () => {
     // No permissions request is necessary for launching the image library
-    let result = await Imagepicker.launchImageLibraryAsync({
-      mediaTypes: Imagepicker.MediaTypeOptions.All,
+    let result = await launchImageLibraryAsync({
+      mediaTypes: MediaTypeOptions.All,
       allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1,
+      aspect: [1, 1],
+      quality: 0.5,
     });
 
-    console.log(result);
+    //console.log(result);
 
     if (!result.canceled) {
+      productImageRef.current = result.assets[0].uri;
       setImage(result.assets[0].uri);
     }
-  };
+  }, []);
 
   return (
     <View style={[globalStyles.container]}>
@@ -27,10 +34,7 @@ const ImagePicker = () => {
         <View style={styles.imageContainer}>
           {image && <Image source={{ uri: image }} style={styles.image} />}
         </View>
-
-        <Pressable onPress={pickImage} style={styles.buttonContainer}>
-          <Text style={styles.pickerText}>Choisissez une image</Text>
-        </Pressable>
+        <Button title="Choisissez une image" color="secondary" shape="round" onPress={pickImage} />
       </View>
     </View>
   );
@@ -42,12 +46,12 @@ const styles = StyleSheet.create({
   container: {
     alignItems: "center",
     gap: 20,
-    padding: 20,
+    paddingTop: 20,
   },
   imageContainer: {
     aspectRatio: 1,
-    width: 150,
-    backgroundColor: lightColor,
+    width: "100%",
+    backgroundColor: backgroundLightColor,
     borderRadius: 10,
   },
   image: {

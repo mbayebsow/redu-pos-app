@@ -4,21 +4,56 @@ import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { Barcode, FileText, HandCoins, PackageMinus, SquarePen } from "lucide-react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { globalStyles, backgroundColor } from "../theme/styles";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
 import Input from "../components/ui/input";
 import ImagePicker from "../components/ui/image-picker";
 import Button from "../components/ui/button";
 
 const CATEGORIES = Array(7).fill(0);
 
+const formSchema = z.object({
+  productName: z.string().min(3, "Too short").max(30, "Too long"),
+  productDescription: z.string().max(300, "Too long"),
+  productPrice: z.coerce.number().min(1),
+  productIdentifier: z.coerce.number().min(1),
+  productMinStock: z.coerce.number().min(1),
+});
+const defaultValues = {
+  productName: "",
+  productPrice: "",
+  productDescription: "",
+  productIdentifier: "",
+  productMinStock: 1,
+};
 const AddProductScreen = () => {
   const [isOnTop, setIsOnTop] = useState(true);
+  const productImageRef = useRef<string | undefined>();
   const navigation = useNavigation<NavigationProp<any>>();
-  const productNameRef = useRef<string | undefined>();
-  const productPriceRef = useRef<string | undefined>();
-  const productDescriptionRef = useRef<string | undefined>();
-  const productIdentifierRef = useRef<string | undefined>();
-  const productMinStockRef = useRef<string | undefined>();
+
+  const { control, handleSubmit } = useForm({ defaultValues, resolver: zodResolver(formSchema) });
+  const onSubmit = (data: any) =>
+    alert(JSON.stringify({ ...data, productImage: productImageRef.current }));
+
+  // const productNameRef = useRef<string | undefined>();
+  // const productPriceRef = useRef<string | undefined>();
+  // const productDescriptionRef = useRef<string | undefined>();
+  // const productIdentifierRef = useRef<string | undefined>();
+  // const productMinStockRef = useRef<string | undefined>();
   //const { bottom, top } = useSafeAreaInsets();
+
+  // const addProduct = () => {
+  //   handleSubmit(onSubmit);
+  //   // console.log(
+  //   //   productImageRef.current,
+  //   //   productNameRef.current,
+  //   //   productPriceRef.current,
+  //   //   productDescriptionRef.current,
+  //   //   productIdentifierRef.current,
+  //   //   productMinStockRef.current
+  //   // );
+  // };
 
   const handleScroll = useCallback((event: NativeSyntheticEvent<NativeScrollEvent>) => {
     const s = event.nativeEvent.contentOffset.y;
@@ -29,98 +64,78 @@ const AddProductScreen = () => {
     }
   }, []);
 
-  const addProduct = () => {
-    console.log(
-      productNameRef.current,
-      productPriceRef.current,
-      productDescriptionRef.current,
-      productIdentifierRef.current,
-      productMinStockRef.current
-    );
-  };
-
   useEffect(() => {
     navigation.setOptions({
-      headerRight: () => <Button title="Ok" fill="clear" onPress={addProduct} />,
+      headerRight: () => <Button title="Ok" fill="clear" onPress={handleSubmit(onSubmit)} />,
       headerShadowVisible: isOnTop ? false : true,
       headerStyle: { backgroundColor: isOnTop ? backgroundColor : "white" },
     });
   }, [isOnTop]);
 
   return (
-    <>
-      <KeyboardAwareScrollView style={[styles.container]} onScroll={handleScroll}>
-        <View style={{ marginBottom: 60 }}>
-          <ImagePicker />
+    <KeyboardAwareScrollView style={[styles.container]} onScroll={handleScroll}>
+      <View style={{ marginBottom: 60, alignItems: "center" }}>
+        <View style={styles.imagePicker}>
+          <ImagePicker productImageRef={productImageRef} />
+        </View>
 
-          <View style={[styles.inner]}>
-            <Input
-              icon={<SquarePen size={20} color="gray" />}
-              label="Nom de produit"
-              value={productNameRef.current}
-              onChange={(value) => (productNameRef.current = value)}
-            />
-            <Input
-              icon={<HandCoins size={20} color="gray" />}
-              label="Prix du produit"
-              keyboardType="number-pad"
-              value={productPriceRef.current}
-              onChange={(value) => (productPriceRef.current = value)}
-            />
-            <Input
-              icon={<FileText size={20} color="gray" />}
-              label="Description"
-              value={productDescriptionRef.current}
-              onChange={(value) => (productDescriptionRef.current = value)}
-            />
-            <Input
-              icon={<Barcode size={20} color="gray" />}
-              label="SKU"
-              keyboardType="number-pad"
-              value={productIdentifierRef.current}
-              onChange={(value) => (productIdentifierRef.current = value)}
-            />
-            <Input
-              icon={<PackageMinus size={20} color="gray" />}
-              label="Minimun stock"
-              keyboardType="number-pad"
-              value={productMinStockRef.current}
-              onChange={(value) => (productMinStockRef.current = value)}
-            />
+        <View style={[styles.inner]}>
+          <Input control={control} icon={SquarePen} label="Nom de produit" name="productName" />
+          <Input
+            control={control}
+            icon={HandCoins}
+            label="Prix du produit"
+            name="productPrice"
+            keyboardType="number-pad"
+          />
+          <Input control={control} icon={FileText} label="Description" name="productDescription" />
+          <Input
+            control={control}
+            icon={Barcode}
+            label="SKU"
+            name="productIdentifier"
+            keyboardType="number-pad"
+          />
+          <Input
+            control={control}
+            icon={PackageMinus}
+            label="Minimun stock"
+            name="productMinStock"
+            keyboardType="number-pad"
+          />
 
-            <View style={[globalStyles.container]}>
-              <View style={[styles.labelContainer]}>
-                <Text style={styles.label}>Categorie</Text>
-              </View>
-
-              <View style={styles.chipsContainer}>
-                {CATEGORIES.map((_, i) => (
-                  <View key={i} style={styles.chip}>
-                    <View style={styles.chipIcon} />
-                    <Text style={styles.chipText}>Categorie</Text>
-                  </View>
-                ))}
-              </View>
+          <View style={[globalStyles.container, { flex: 1 }]}>
+            <View style={[styles.labelContainer]}>
+              <Text style={styles.label}>Categorie</Text>
             </View>
 
-            <View style={[globalStyles.container]}>
-              <View style={[styles.labelContainer]}>
-                <Text style={styles.label}>Boutique</Text>
-              </View>
+            <View style={styles.chipsContainer}>
+              {CATEGORIES.map((_, i) => (
+                <View key={i} style={styles.chip}>
+                  <View style={styles.chipIcon} />
+                  <Text style={styles.chipText}>Categorie</Text>
+                </View>
+              ))}
+            </View>
+          </View>
 
-              <View style={styles.chipsContainer}>
-                {CATEGORIES.map((_, i) => (
-                  <View key={i} style={styles.chip}>
-                    <View style={styles.chipIcon} />
-                    <Text style={styles.chipText}>Boutique</Text>
-                  </View>
-                ))}
-              </View>
+          <View style={[globalStyles.container, { flex: 1 }]}>
+            <View style={[styles.labelContainer]}>
+              <Text style={styles.label}>Boutique</Text>
+            </View>
+
+            <View style={styles.chipsContainer}>
+              {CATEGORIES.map((_, i) => (
+                <View key={i} style={styles.chip}>
+                  <View style={styles.chipIcon} />
+                  <Text style={styles.chipText}>Boutique</Text>
+                </View>
+              ))}
             </View>
           </View>
         </View>
-      </KeyboardAwareScrollView>
-    </>
+      </View>
+    </KeyboardAwareScrollView>
   );
 };
 
@@ -131,9 +146,13 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 12,
   },
+  imagePicker: {
+    width: "70%",
+    marginBottom: 20,
+  },
   inner: {
     flex: 1,
-    padding: 6,
+    //padding: 6,
     borderRadius: 10,
     backgroundColor: "white",
   },

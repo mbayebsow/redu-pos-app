@@ -1,47 +1,51 @@
 import React, { useState } from "react";
-import { View, TextInput, StyleSheet, Text, KeyboardTypeOptions } from "react-native";
+import { View, TextInput, StyleSheet, Text, TextInputProps } from "react-native";
 import { backgroundMediumColor, globalStyles } from "../../theme/styles";
+import { Controller } from "react-hook-form";
+import { LucideIcon } from "lucide-react-native";
 
-interface InputProps {
+interface InputProps extends TextInputProps {
   label?: string;
-  icon?: React.ReactNode;
-  value?: string | undefined;
-  placholder?: string;
-  keyboardType?: KeyboardTypeOptions;
-  onChange?: (text: string) => void;
+  name: string;
+  icon?: LucideIcon;
+  control?: any;
 }
 
-const Input: React.FC<InputProps> = ({
-  label,
-  icon,
-  value,
-  placholder,
-  keyboardType,
-  onChange,
-}) => {
+const Input: React.FC<InputProps> = ({ label, name, icon, control, ...otherProps }) => {
   const [isFocus, setIsFocus] = useState(false);
 
   return (
-    <View style={[globalStyles.container]}>
-      {label && (
-        <View style={[styles.labelContainer]}>
-          <Text style={styles.label}>{label}</Text>
+    <Controller
+      control={control}
+      name={name}
+      render={({ field: { value, onChange, onBlur }, fieldState: { error } }) => (
+        <View style={[globalStyles.container]}>
+          {label && (
+            <View style={[styles.labelContainer]}>
+              <Text style={styles.label}>{label}</Text>
+            </View>
+          )}
+
+          <View style={[styles.container, { borderWidth: isFocus ? 2 : 0 }]}>
+            {icon && (
+              <View style={styles.icon}>
+                {React.createElement(icon, { size: 20, color: "gray" })}
+              </View>
+            )}
+
+            <TextInput
+              style={styles.input}
+              value={value}
+              onChangeText={onChange}
+              onFocus={() => setIsFocus(true)}
+              onBlur={() => setIsFocus(false)}
+              {...otherProps}
+            />
+          </View>
+          {error && <Text style={styles.errorMessage}>{error.message}</Text>}
         </View>
       )}
-
-      <View style={[styles.container, { borderWidth: isFocus ? 2 : 0 }]}>
-        {icon && <View style={styles.icon}>{icon}</View>}
-        <TextInput
-          style={styles.input}
-          value={value}
-          onChangeText={onChange}
-          onFocus={() => setIsFocus(true)}
-          onBlur={() => setIsFocus(false)}
-          placeholder={placholder}
-          keyboardType={keyboardType}
-        />
-      </View>
-    </View>
+    />
   );
 };
 
@@ -72,5 +76,11 @@ const styles = StyleSheet.create({
   input: {
     flex: 1,
     height: "100%",
+  },
+  errorMessage: {
+    color: "red",
+    alignSelf: "stretch",
+    fontSize: 12,
+    marginLeft: 10,
   },
 });

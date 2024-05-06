@@ -1,10 +1,9 @@
 import React from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
-import { CircleFadingPlus, Search } from "lucide-react-native";
-import { backgroundColor, borderColor, globalStyles } from "../theme/styles";
+import { Search } from "lucide-react-native";
+import { borderColor, globalStyles } from "../theme/styles";
 import Input from "../components/ui/input";
 import StoreItem from "../components/store";
-import AppLayout from "../components/layout";
 
 const data = Array(5).fill(0);
 

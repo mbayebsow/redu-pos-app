@@ -33,9 +33,7 @@ const ProductsScreen = () => {
       >
         <View>
           <View style={[globalStyles.container, styles.filterContainer]}>
-            <View style={styles.inputContainer}>
-              <Input placholder="Recherche" icon={<Search size={20} color="gray" />} />
-            </View>
+            <View style={styles.inputContainer}></View>
             <View style={styles.buttonContainer}>
               <View style={globalStyles.container}>
                 <Button color="light" icon={ListFilter} />

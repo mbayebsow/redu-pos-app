@@ -49,6 +49,10 @@ const Button: React.FC<ButtonProps> = ({
   const getButtonStyle = () => {
     let buttonStyle: StyleProp<ViewStyle> = {};
 
+    if (title) {
+      buttonStyle = { ...buttonStyle, ...globalStyles.container };
+    }
+
     // Fill
     if (fill === "clear") {
       buttonStyle = { ...buttonStyle, backgroundColor: "transparent" };
@@ -107,7 +111,9 @@ const Button: React.FC<ButtonProps> = ({
   const getTitleStyle = () => {
     let titleStyle: StyleProp<TextStyle> = {};
 
-    if (fill === "solid") {
+    if (fill === "clear") {
+      titleStyle = { ...titleStyle, color: accentColor };
+    } else {
       titleStyle = { ...titleStyle, paddingRight: 20, paddingLeft: icon ? 0 : 20 };
       if (color === "primary") {
         titleStyle = { ...titleStyle, color: accentColorContrast };
@@ -118,8 +124,6 @@ const Button: React.FC<ButtonProps> = ({
       } else {
         titleStyle = { ...titleStyle, color: textColor };
       }
-    } else {
-      titleStyle = { ...titleStyle, color: accentColor };
     }
 
     return titleStyle;
@@ -143,13 +147,15 @@ const Button: React.FC<ButtonProps> = ({
 
   return (
     <TouchableOpacity
-      style={{
-        //gap: 15,
-        justifyContent: "center",
-        alignItems: "center",
-        flexDirection: "row",
-        ...getButtonStyle(),
-      }}
+      style={[
+        {
+          //gap: 15,
+          justifyContent: "center",
+          alignItems: "center",
+          flexDirection: "row",
+          ...getButtonStyle(),
+        },
+      ]}
       onPress={onPress}
     >
       {icon && (
