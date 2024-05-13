@@ -8,7 +8,7 @@ interface ListProps {
   data: {
     title: string;
     icon?: LucideIcon;
-    value?: string;
+    value?: string | number | boolean | undefined;
     onPress?: () => void;
   }[];
 }

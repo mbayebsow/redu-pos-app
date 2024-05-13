@@ -8,20 +8,26 @@ import {
   View,
 } from "react-native";
 import React, { useCallback, useEffect, useState } from "react";
-import {
-  accentColorContrast,
-  backgroundLightColor,
-  backgroundMediumColor,
-  globalStyles,
-} from "../theme/styles";
+import { backgroundLightColor, backgroundMediumColor, globalStyles } from "../theme/styles";
 import Button from "../components/ui/button";
 import { PackagePlus, Send } from "lucide-react-native";
-import { NavigationProp, useNavigation } from "@react-navigation/native";
+import { NavigationProp, RouteProp, useNavigation } from "@react-navigation/native";
 import List from "../components/ui/list";
+import { PRODUCTS } from "../utils/data/products";
+import { ProductParams } from "../types";
 
-const ProductScreen = () => {
+interface ProductScreenProps {
+  route: RouteProp<ProductParams>;
+}
+
+const ProductScreen = ({ route }: ProductScreenProps) => {
+  const { pid } = route.params;
   const [isOnTop, setIsOnTop] = useState(true);
   const navigation = useNavigation<NavigationProp<any>>();
+
+  const PRODUCT = useCallback(() => {
+    return PRODUCTS.find((p) => p.identifier === pid);
+  }, [pid]);
 
   const handleScroll = useCallback((event: NativeSyntheticEvent<NativeScrollEvent>) => {
     const s = event.nativeEvent.contentOffset.y;
@@ -45,72 +51,78 @@ const ProductScreen = () => {
 
   return (
     <ScrollView scrollEventThrottle={1} onScroll={handleScroll} style={styles.container}>
-      <View style={[globalStyles.container, styles.inner]}>
-        <View style={[styles.topContainer]}>
-          <Image
-            style={styles.image}
-            source={{
-              uri: "https://yombouna.sn/wp-content/uploads/2020/09/Eau-minerale-kirene-pack-12-bouteilles.jpg",
-            }}
+      {PRODUCT() && (
+        <View style={[globalStyles.container, styles.inner]}>
+          <View style={[styles.topContainer]}>
+            <Image
+              style={styles.image}
+              source={{
+                uri: PRODUCT()?.image,
+              }}
+            />
+
+            <View>
+              <Text style={[globalStyles.title1, styles.name]}>{PRODUCT()?.name}</Text>
+            </View>
+            <View style={styles.buttonContainer}>
+              <Button
+                title="Stock"
+                expand="full"
+                size="large"
+                icon={PackagePlus}
+                color="secondary"
+              />
+              <Button title="Vente" expand="full" size="large" icon={Send} color="secondary" />
+            </View>
+          </View>
+
+          <List
+            title="Stock"
+            data={[
+              {
+                title: "Stock actuelle",
+                value: PRODUCT()?.stockQuantity,
+              },
+              {
+                title: "Minimun stock",
+                value: "200",
+              },
+            ]}
           />
 
-          <View>
-            <Text style={[globalStyles.title1, styles.name]}>
-              Eau-Minerale-Kirene-pack-12-bouteilles
-            </Text>
-          </View>
-          <View style={styles.buttonContainer}>
-            <Button title="Stock" expand="full" size="large" icon={PackagePlus} color="secondary" />
-            <Button title="Vente" expand="full" size="large" icon={Send} color="secondary" />
-          </View>
+          <List
+            title="Details"
+            data={[
+              {
+                title: "Prix",
+                value: PRODUCT()?.priceSale,
+              },
+              {
+                title: "Coût",
+                value: PRODUCT()?.priceCost,
+              },
+              {
+                title: "Categorie",
+                value: PRODUCT()?.category,
+              },
+              {
+                title: "UPC",
+                value: PRODUCT()?.identifier,
+              },
+            ]}
+          />
+
+          <List
+            title="Quantité"
+            data={[
+              {
+                title: "Magasin principal",
+                value: "200",
+              },
+            ]}
+          />
         </View>
-
-        <List
-          title="Stock"
-          data={[
-            {
-              title: "Stock actuelle",
-              value: "2 500",
-            },
-            {
-              title: "Minimun stock",
-              value: "200",
-            },
-          ]}
-        />
-
-        <List
-          title="Details"
-          data={[
-            {
-              title: "Prix",
-              value: "2 500",
-            },
-            {
-              title: "Coût",
-              value: "2 500",
-            },
-            {
-              title: "Categorie",
-              value: "Boissons",
-            },
-            {
-              title: "UPC",
-              value: "1234567890123",
-            },
-          ]}
-        />
-
-        <List
-          title="Quantité"
-          data={[
-            {
-              title: "Magasin principal",
-              value: "200",
-            },
-          ]}
-        />
-      </View>
+      )}
     </ScrollView>
   );
 };

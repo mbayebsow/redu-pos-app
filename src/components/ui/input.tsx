@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { View, TextInput, StyleSheet, Text, TextInputProps } from "react-native";
+import { View, TextInput, StyleSheet, Text, TextInputProps, Pressable } from "react-native";
 import { backgroundMediumColor, globalStyles } from "../../theme/styles";
 import { Controller } from "react-hook-form";
-import { LucideIcon } from "lucide-react-native";
+import { LucideIcon, X } from "lucide-react-native";
 
 interface InputProps extends TextInputProps {
   label?: string;
@@ -41,6 +41,12 @@ const Input: React.FC<InputProps> = ({ label, name, icon, control, ...otherProps
               onBlur={() => setIsFocus(false)}
               {...otherProps}
             />
+
+            {value && (
+              <Pressable style={styles.icon} onPress={() => onChange("")}>
+                <X size={15} />
+              </Pressable>
+            )}
           </View>
           {error && <Text style={styles.errorMessage}>{error.message}</Text>}
         </View>

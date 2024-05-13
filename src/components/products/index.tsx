@@ -1,39 +1,41 @@
-import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import React from "react";
-import {
-  globalStyles,
-  accentColor,
-  lightColor,
-  borderColor,
-  backgroundMediumColor,
-} from "../../theme/styles";
+import { Image, Pressable, StyleSheet, Text, View } from "react-native";
+import { globalStyles, borderColor, backgroundMediumColor } from "../../theme/styles";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
+import { ProductParams, ProductType } from "../../types";
 
-const Product = () => {
-  const navigation = useNavigation<NavigationProp<any>>();
+interface ProductProps {
+  product: ProductType;
+}
+
+const Product = ({ product }: ProductProps) => {
+  const navigation = useNavigation<NavigationProp<ProductParams>>();
+
   return (
     <Pressable
       style={[styles.container, globalStyles.container]}
-      onPress={() => navigation.navigate("Product")}
+      onPress={() => navigation.navigate("Product", { pid: product.identifier })}
     >
       <View style={styles.imageContainer}>
         <Image
           style={styles.image}
           source={{
-            uri: "https://yombouna.sn/wp-content/uploads/2020/09/Eau-minerale-kirene-pack-12-bouteilles.jpg",
+            uri: product.image,
           }}
         />
       </View>
       <View style={styles.textContainer}>
         <View style={[globalStyles.container, { flex: 1 }]}>
           <Text style={[globalStyles.subHead, styles.price]}>Boissons</Text>
-          <Text style={[globalStyles.headline, styles.name]}>
-            Eau-Minerale-Kirene-pack-12-bouteilles
+          <Text style={[globalStyles.headline, styles.name]} numberOfLines={2}>
+            {product.name}
           </Text>
-          <Text style={styles.price}>2 500 FCFA - 002283748</Text>
+          <Text style={styles.price}>
+            {product.priceSale} FCFA - {product.identifier}
+          </Text>
         </View>
         <View style={styles.unitContainer}>
-          <Text style={styles.unit}>20</Text>
+          <Text style={styles.unit}>{product.stockQuantity}</Text>
         </View>
       </View>
     </Pressable>
@@ -58,7 +60,7 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     aspectRatio: 1,
     height: 60,
-    backgroundColor: lightColor,
+    backgroundColor: backgroundMediumColor,
   },
   image: {
     height: "100%",

@@ -25,7 +25,7 @@ const defaultValues = {
   productPrice: "",
   productDescription: "",
   productIdentifier: "",
-  productMinStock: 1,
+  productMinStock: "1",
 };
 const AddProductScreen = () => {
   const [isOnTop, setIsOnTop] = useState(true);
@@ -33,27 +33,9 @@ const AddProductScreen = () => {
   const navigation = useNavigation<NavigationProp<any>>();
 
   const { control, handleSubmit } = useForm({ defaultValues, resolver: zodResolver(formSchema) });
-  const onSubmit = (data: any) =>
+  const onSubmit = (data: any) => {
     alert(JSON.stringify({ ...data, productImage: productImageRef.current }));
-
-  // const productNameRef = useRef<string | undefined>();
-  // const productPriceRef = useRef<string | undefined>();
-  // const productDescriptionRef = useRef<string | undefined>();
-  // const productIdentifierRef = useRef<string | undefined>();
-  // const productMinStockRef = useRef<string | undefined>();
-  //const { bottom, top } = useSafeAreaInsets();
-
-  // const addProduct = () => {
-  //   handleSubmit(onSubmit);
-  //   // console.log(
-  //   //   productImageRef.current,
-  //   //   productNameRef.current,
-  //   //   productPriceRef.current,
-  //   //   productDescriptionRef.current,
-  //   //   productIdentifierRef.current,
-  //   //   productMinStockRef.current
-  //   // );
-  // };
+  };
 
   const handleScroll = useCallback((event: NativeSyntheticEvent<NativeScrollEvent>) => {
     const s = event.nativeEvent.contentOffset.y;

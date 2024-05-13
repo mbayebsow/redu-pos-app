@@ -4,9 +4,10 @@ import { Pressable, StyleSheet, Text, TouchableOpacity, View } from "react-nativ
 import { accentColor, globalStyles, lightColor } from "../../theme/styles";
 import { GestureHandlerRootView, Swipeable } from "react-native-gesture-handler";
 import { BellPlus, Pin, Printer } from "lucide-react-native";
+import { SaleType } from "../../types";
 
 interface SaleItemProps {
-  index?: number;
+  sale?: SaleType;
 }
 
 const RightSwipeActions = () => {
@@ -60,7 +61,7 @@ const RightSwipeActions = () => {
   );
 };
 
-const SaleItem: React.FC<SaleItemProps> = ({ index }) => {
+const SaleItem: React.FC<SaleItemProps> = ({ sale }) => {
   const swipeableRef: LegacyRef<Swipeable> = useRef(null);
   const navigation = useNavigation<NavigationProp<any>>();
 
@@ -82,19 +83,21 @@ const SaleItem: React.FC<SaleItemProps> = ({ index }) => {
       >
         <Pressable style={styles.container} onPress={() => navigation.navigate("Sale")}>
           <View style={styles.head}>
-            <Text style={[styles.saleId, globalStyles.headline]}>#001-00000001</Text>
+            <Text style={[styles.saleId, globalStyles.headline]}>{sale?.receiptNo}</Text>
             <View style={styles.saleTotal}>
-              <Text>50.000</Text>
+              <Text>{sale?.amount}</Text>
             </View>
           </View>
           <View>
-            <Text style={[globalStyles.subHead]}>02/04/2024 - Nom du client</Text>
+            <Text style={[globalStyles.subHead]}>
+              {sale?.date.toLocaleString()} - Nom du client
+            </Text>
             <Text style={styles.saleItems}>
               1 x Produit, 4 x Produit,3 x Produit,2 x Produit, 3 x Produit
             </Text>
           </View>
           <View style={styles.salePaymentStatus}>
-            <Text style={{ fontSize: 11, fontWeight: "600", color: "white" }}>DUE</Text>
+            <Text style={{ fontSize: 11, fontWeight: "600", color: "white" }}>{sale?.status}</Text>
           </View>
         </Pressable>
       </Swipeable>

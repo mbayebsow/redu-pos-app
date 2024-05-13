@@ -5,8 +5,7 @@ import { Download, HandCoins, PenLine, Undo2 } from "lucide-react-native";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import Button from "../components/ui/button";
 import Product from "../components/products";
-
-const PRODUCTS = Array(5).fill(0);
+import { PRODUCTS } from "../utils/data/products";
 
 const SaleScreen = () => {
   const navigation = useNavigation<NavigationProp<any>>();
@@ -39,7 +38,7 @@ const SaleScreen = () => {
       <ScrollView style={{ flex: 1 }}>
         <View style={styles.productsContainer}>
           {PRODUCTS.map((item, index) => (
-            <Product key={index} />
+            <Product key={index} product={item} />
           ))}
         </View>
       </ScrollView>

@@ -1,27 +1,49 @@
-import React from "react";
-import { SectionList, StyleSheet, Text, View } from "react-native";
+import React, { useEffect, useState } from "react";
+import { StyleSheet, View } from "react-native";
 import { backgroundColor, globalStyles, lightColor } from "../theme/styles";
+import { Search } from "lucide-react-native";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
 import AppLayout from "../components/layout";
 import SaleItem from "../components/sales";
 import Input from "../components/ui/input";
-import { Search } from "lucide-react-native";
+import { SALES } from "../utils/data/sales";
 
-const data = Array(50).fill(0);
+const formSchema = z.object({
+  productNameSearch: z.string(),
+});
+const defaultValues = {
+  productNameSearch: "",
+};
 
 const SalesScreen = () => {
+  const [searchValue, setSearchValue] = useState<string>("");
+  const { control, watch } = useForm({ defaultValues, resolver: zodResolver(formSchema) });
+
+  useEffect(() => {
+    const subscription = watch((value) => setSearchValue(value.productNameSearch || ""));
+    return () => subscription.unsubscribe();
+  }, [watch]);
+
   return (
     <AppLayout title="Ventes" stickyHeaderIndices={[1]}>
       <View style={[globalStyles.container, styles.filterContainer]}>
         <View style={styles.inputContainer}>
-          <Input placholder="Recherche" icon={<Search size={20} color="gray" />} />
+          <Input
+            control={control}
+            icon={Search}
+            name="saleIdSearch"
+            placeholder="Rechercher par ID"
+          />
         </View>
       </View>
 
       <View style={[globalStyles.container, styles.content]}>
         <View style={styles.itemsContainer}>
           <View style={styles.itemsContainerInner}>
-            {data.map((item, index) => (
-              <SaleItem key={index} index={index} />
+            {SALES.map((item, index) => (
+              <SaleItem key={index} sale={item} />
             ))}
           </View>
         </View>
