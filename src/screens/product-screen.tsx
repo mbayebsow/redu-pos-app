@@ -1,12 +1,4 @@
-import {
-  Image,
-  NativeScrollEvent,
-  NativeSyntheticEvent,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
+import { Image, NativeScrollEvent, NativeSyntheticEvent, ScrollView, StyleSheet, Text, View } from "react-native";
 import React, { useCallback, useEffect, useState } from "react";
 import { backgroundLightColor, backgroundMediumColor, globalStyles } from "../theme/styles";
 import Button from "../components/ui/button";
@@ -17,11 +9,11 @@ import { PRODUCTS } from "../utils/data/products";
 import { ProductParams } from "../types";
 
 interface ProductScreenProps {
-  route: RouteProp<ProductParams>;
+  route?: RouteProp<ProductParams>;
 }
 
 const ProductScreen = ({ route }: ProductScreenProps) => {
-  const { pid } = route.params;
+  const { pid } = route?.params || {};
   const [isOnTop, setIsOnTop] = useState(true);
   const navigation = useNavigation<NavigationProp<any>>();
 
@@ -65,13 +57,7 @@ const ProductScreen = ({ route }: ProductScreenProps) => {
               <Text style={[globalStyles.title1, styles.name]}>{PRODUCT()?.name}</Text>
             </View>
             <View style={styles.buttonContainer}>
-              <Button
-                title="Stock"
-                expand="full"
-                size="large"
-                icon={PackagePlus}
-                color="secondary"
-              />
+              <Button title="Stock" expand="full" size="large" icon={PackagePlus} color="secondary" />
               <Button title="Vente" expand="full" size="large" icon={Send} color="secondary" />
             </View>
           </View>
@@ -103,7 +89,7 @@ const ProductScreen = ({ route }: ProductScreenProps) => {
               },
               {
                 title: "Categorie",
-                value: PRODUCT()?.category,
+                value: PRODUCT()?.categoryId,
               },
               {
                 title: "UPC",

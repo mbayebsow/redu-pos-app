@@ -1,5 +1,3 @@
-import { ReactNode } from "react";
-
 export type ProductType = {
   id?: number;
   identifier: number; // Code bare
@@ -8,8 +6,9 @@ export type ProductType = {
   priceSale: number; // Prix de vente null si des options sont disponible
   stockQuantity: number;
   minStockQuantity?: number;
-  category: number | undefined;
-  supplier: number | undefined;
+  categoryId: number | undefined; // CategoryType relation
+  supplierId: number | undefined; // PartenerType relation
+  storeId: number; // StoreType relation
   isActive: boolean;
   unit: string; // Type d'unité
   type: "standard" | "variable";
@@ -20,8 +19,8 @@ export type ProductOptionType = {
   id?: number;
   name: string;
   identifier: string; // Code bare
-  ProductID: number;
-  supplier: number | null;
+  ProductId: number;
+  supplierId: number | null; // PartenerType relation
   priceCost: number; // Prix d'achat
   priceSale: number; // Prix de vente
   stockQuantity: number;
@@ -35,25 +34,19 @@ export type CategoryType = {
   id?: number;
   name: string;
   color?: string;
+  teamId: number;
   isActive: boolean;
 };
 
-export type CustomerType = {
-  id?: number;
-  firstName: string;
-  lastName: string;
-  address: string;
-  phone: number;
-  mail?: string;
-  isActive: boolean;
-};
-
-export type SupplierType = {
+export type PartenerType = {
   id?: number;
   name: string;
   address: string;
   phone: number;
+  email?: string;
+  teamId: number;
   isActive: boolean;
+  type: "customer" | "supplier";
 };
 
 export type SaleType = {
@@ -63,15 +56,16 @@ export type SaleType = {
   amount: number;
   discount: number;
   advance: number;
-  itemsNumbers: number;
-  customer?: number | null;
+  itemNumbers: number;
+  customerId?: number | null;
+  storeId: number; // StoreType relation
   status: "pending" | "paid" | "cancelled" | "refunded";
 };
 
 export type SaleItemType = {
   id?: number;
   saleId: number;
-  ProductIdentifier: string;
+  ProductId: number;
   quantity: number;
   price: number;
   discount: 0;
@@ -87,7 +81,8 @@ export type SaleItemsDetails = SaleItemType & {
 
 export type StockReplenishmentType = {
   id?: number;
-  supplier: number | null;
+  supplierId: number | null; // PartenerType relation
+  storeId: number; // StoreType relation
   totalAmountOrder: number;
   payAmount: number;
   status: string; // "pending" | "in progress" | "completed"
@@ -97,7 +92,7 @@ export type StockReplenishmentType = {
 export type StockReplenishmentItemsType = {
   id?: number;
   stockId: number;
-  productIdentifier: string; // Identification du produit ou de l'option du produit
+  productId: number; // Identification du produit ou de l'option du produit
   initialtQuantity: number;
   newQuantity: number;
   priceCost: number; // Prix d'achat
@@ -107,12 +102,12 @@ export type StockReplenishmentItemsType = {
 
 export type PriceHistoryType = {
   id?: number;
-  productIdentifier: string; // Identification du produit ou de l'option du produit
+  productId: number; // Identification du produit ou de l'option du produit
   oldPriceCost: number; // Ancien Prix d'achat
   oldPriceSale: number; // Ancien Prix de vente
   newPriceCost: number; // Nouveau Prix d'achat
   newPriceSale: number; // Nouveau Prix de vente
-  supplier: number | null; // Fournisseur
+  supplierId: number | null; // PartenerType relation
   date: Date;
 };
 
@@ -126,6 +121,25 @@ export type CartType = {
   quantity: number;
 };
 
+export type TeamsType = {
+  id?: number;
+  name: string;
+  numberOfMembers: number;
+};
+
+export type TeamMembersType = {
+  id?: number;
+  teamId: number;
+  userId: number;
+  role: "vendeur" | "caissier" | "admin";
+};
+
+export type StoreType = {
+  id?: number;
+  teamId: number;
+  name: string;
+  location: string;
+};
 // Navigation Route
 export type ProductParams = {
   Product: { pid: number };

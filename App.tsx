@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -15,27 +15,12 @@ import CloseModalButton from "./src/components/shared/close-modal-button";
 import ProductScreen from "./src/screens/product-screen";
 import SaleScreen from "./src/screens/sale-screen";
 import SpaceScreen from "./src/screens/space-screen";
+import { Session } from "@supabase/supabase-js";
+import { supabase } from "./src/utils/supabase";
+import Auth from "./src/components/auth";
 
 const Tab = createBottomTabNavigator();
 const RootStack = createNativeStackNavigator();
-
-const ProductsPageStack = () => {
-  return (
-    <RootStack.Navigator
-      screenOptions={{
-        headerShown: true,
-        headerLargeTitle: true,
-        headerSearchBarOptions: {
-          placeholder: "Rechercher un produit",
-          hideWhenScrolling: false,
-          obscureBackground: true,
-        },
-      }}
-    >
-      <RootStack.Screen name="Home" component={ProductsScreen} />
-    </RootStack.Navigator>
-  );
-};
 
 const TabNavigation = () => {
   return (
@@ -77,7 +62,7 @@ const Routes = () => {
         <RootStack.Screen name="Home" component={TabNavigation} options={{ headerShown: false }} />
         <RootStack.Screen
           name="Product"
-          component={ProductScreen}
+          component={ProductScreen!}
           options={{
             headerTitle: "",
           }}
@@ -112,10 +97,24 @@ const Routes = () => {
 };
 
 export default function App() {
-  return (
+  const [session, setSession] = useState<Session | null>(null);
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+    });
+
+    supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+    });
+  }, []);
+
+  return session && session.user ? (
     <NavigationContainer theme={AppTheme}>
       <StatusBar style="auto" />
       <Routes />
     </NavigationContainer>
+  ) : (
+    <Auth />
   );
 }

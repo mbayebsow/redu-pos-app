@@ -1,12 +1,6 @@
 import { SafeAreaView, ScrollView, StyleSheet, Text, View } from "react-native";
 import React from "react";
-import {
-  accentColorContrast,
-  backgroundLightColor,
-  backgroundMediumColor,
-  borderColor,
-  globalStyles,
-} from "../theme/styles";
+import { accentColorContrast, backgroundLightColor, backgroundMediumColor, borderColor, globalStyles } from "../theme/styles";
 import {
   BadgeInfo,
   BadgeSwissFranc,
@@ -43,9 +37,7 @@ const SpaceScreen = () => {
             <View style={styles.nameContainer}>
               <Text style={[styles.userName, globalStyles.title1]}>Mbaye babacar</Text>
               <Text style={[styles.userEstablishment]}>Etablissement Mbaye babacar</Text>
-              <Text style={[styles.userPhone, globalStyles.subHead]}>
-                Administrateur - 77 000 00 00
-              </Text>
+              <Text style={[styles.userPhone, globalStyles.subHead]}>Administrateur - 77 000 00 00</Text>
             </View>
           </View>
 
@@ -169,6 +161,7 @@ const styles = StyleSheet.create({
     aspectRatio: 1,
     borderRadius: 100,
     height: 60,
+    width: 60,
     borderWidth: 1,
     borderColor,
     backgroundColor: "gray",

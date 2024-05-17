@@ -22,17 +22,8 @@ const Card: React.FC<CardProps> = ({ title, columns = 1, data, colored }) => {
       {title && <Text style={[globalStyles.subHead, styles.cardContainerTitle]}>{title}</Text>}
       <View style={styles.cardInner}>
         {data?.map((item, i) => (
-          <Pressable
-            onPress={item.onPress}
-            style={[styles.cardItemContainer, { width: `${100 / columns - 1.1}%` }]}
-            key={i}
-          >
-            <View
-              style={[
-                styles.cardItem,
-                { backgroundColor: colored ? Color.complementary[i + 1]?.tint : "white" },
-              ]}
-            >
+          <Pressable onPress={item.onPress} style={[styles.cardItemContainer, { width: `${100 / columns - 1.1}%` }]} key={i}>
+            <View style={[styles.cardItem, { backgroundColor: colored ? Color.complementary[i + 1]?.tint : "white" }]}>
               {item.icon && (
                 <View
                   style={[
@@ -46,20 +37,8 @@ const Card: React.FC<CardProps> = ({ title, columns = 1, data, colored }) => {
                   })}
                 </View>
               )}
-              {item.title && (
-                <Text
-                  style={[
-                    globalStyles.headline,
-                    styles.cardItemTitle,
-                    { color: colored ? Color.complementary[i + 1]?.fill : textColor },
-                  ]}
-                >
-                  {item.title}
-                </Text>
-              )}
-              {item.subTitle && (
-                <Text style={[globalStyles.subHead, styles.cardItemSubTitle]}>{item.subTitle}</Text>
-              )}
+              {item.title && <Text style={[globalStyles.headline, styles.cardItemTitle, { color: textColor }]}>{item.title}</Text>}
+              {item.subTitle && <Text style={[globalStyles.subHead, styles.cardItemSubTitle]}>{item.subTitle}</Text>}
             </View>
           </Pressable>
         ))}
